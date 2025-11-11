@@ -5,6 +5,9 @@ Day la thu vien chinh chay cho android va ios moi nguoi la chu y su dung thu vie
 anh co thay doi 1 so thu vien moi nguoi nho doc ky thu vien truoc khi dung
 **/
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/utils/colors.dart';
+import 'package:food_delivery_app/widgets/big_text.dart';
+import 'package:food_delivery_app/widgets/small_text.dart';
 class MainFoodPage  extends StatefulWidget {
   const MainFoodPage({Key? key}): super(key: key);
 
@@ -24,14 +27,24 @@ class _MainFoodPageState extends State<MainFoodPage> {
 
           /**Header **/
           Container(
-
+            margin: EdgeInsets.only(top: 45, bottom: 15),
+            padding: EdgeInsets.only(left: 20, right: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween ,
               children: [
                 Column(
                   children: [
-                    Text('ABCD'),
-                    Text('EEEEEEEE'),
+                    BigText(text: 'VietNam',color:AppColors.mainBlackColor , size: 20,),
+                    Row(
+                      children: [
+                        SmallText(text: 'VIquoc Quan', color: AppColors.textColor, size: 14,),
+                        Icon(Icons.arrow_drop_up,color: AppColors.textColor,size: 14,)
+                      ],
+
+                    ),
+
+
+
                   ],
 
 
