@@ -36,6 +36,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
                   children: [
                     BigText(text: 'VietNam',color:AppColors.mainBlackColor , size: 20,),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SmallText(text: 'VIquoc Quan', color: AppColors.textColor, size: 14,),
                         Icon(Icons.arrow_drop_up,color: AppColors.textColor,size: 14,)
