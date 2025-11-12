@@ -5,6 +5,8 @@ Day la thu vien chinh chay cho android va ios moi nguoi la chu y su dung thu vie
 anh co thay doi 1 so thu vien moi nguoi nho doc ky thu vien truoc khi dung
 **/
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/home/foodpagebody.dart';
+
 import 'package:food_delivery_app/utils/colors.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
@@ -56,7 +58,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
                   child: Icon(Icons.search, color: Colors.white,),
                   decoration: BoxDecoration(
                     color: Colors.green,
-                    borderRadius: BorderRadius.circular(15)
+                    borderRadius: BorderRadius.circular(35)
                   ),
 
                 )
@@ -69,7 +71,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
 
 
           /**Slug **/
-          Container(),
+          Foodpagebody()
 
         ],
 

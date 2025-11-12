@@ -1,0 +1,102 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:food_delivery_app/utils/colors.dart';
+import 'package:food_delivery_app/widgets/big_text.dart';
+import 'package:food_delivery_app/widgets/small_text.dart';
+
+
+
+class Foodpagebody extends StatefulWidget {
+  const Foodpagebody({super.key});
+
+  @override
+  State<Foodpagebody> createState() => _FoodpagebodyState();
+}
+
+class _FoodpagebodyState extends State<Foodpagebody> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 330,
+        color:Colors.lightGreenAccent,
+        child: PageView.builder(itemCount: 5, itemBuilder: (context, position){
+          return _BuildPageView(position);
+        }),
+
+    );
+  }
+
+
+  Widget _BuildPageView(int index){
+  return Stack(
+    children: [
+    Container(
+    height: 220,
+    // padding: EdgeInsets.only(left: 15, right: 15),
+    margin: EdgeInsets.only(left: 5, right: 5),
+    decoration: BoxDecoration(
+        color: AppColors.buttonBackgroundColor,
+        borderRadius: BorderRadius.circular(15),
+      image: DecorationImage(
+        fit: BoxFit.cover,
+        image: AssetImage('')
+      ),
+
+    ),
+
+    ),
+      Align(
+        alignment: Alignment.bottomCenter,
+        child: Container(
+          height: 120,
+
+          margin: EdgeInsets.only(left: 40, right: 40, bottom: 15),
+          decoration: BoxDecoration(
+              color: AppColors.yellowColor,
+              borderRadius: BorderRadius.circular(15)
+          ),
+          child: Container(
+            padding: EdgeInsets.only(left: 15,top: 10, right: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                BigText(text: 'VietNamese Food', color: AppColors.titleColor,),
+                SizedBox(height: 10,),
+                Row(
+
+                  children: [
+                    Wrap(
+                      children: [
+                        // Dùng Spread Operator (...) để trích xuất các Icons từ List.generate
+                        ...List.generate(
+                          5,
+                              (index) => Icon(
+                            Icons.star,
+                            color: AppColors.mainColor, // Hoặc AppColors.yellowColor
+                            size: 14,
+                          ),
+
+                        ),
+                        SizedBox(width: 10,),
+                        SmallText(text: '5'),
+                        SizedBox(width: 10,),
+                        SmallText(text: '1278'),
+                        SizedBox(width: 10,),
+                        SmallText(text: 'Reviewer',)
+
+                      ],
+                    ),
+                  ],
+                )
+              ],
+            ),
+
+          )
+        ),
+      )
+    ],
+
+  );
+
+  }
+}
