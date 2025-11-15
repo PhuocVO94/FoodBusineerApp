@@ -19,7 +19,7 @@ class _FoodpagebodyState extends State<Foodpagebody> {
   PageController pageController = PageController(viewportFraction: 0.85);
   var _currPagevalue = 0.0;
   double _scaleFacetory = 0.8;
-
+  double _height = 220;
   @override
   void initState(){
     super.initState();
@@ -27,7 +27,7 @@ class _FoodpagebodyState extends State<Foodpagebody> {
       setState(() {
 
         _currPagevalue = pageController.page!;
-        print("current value is"+_currPagevalue.toString());
+          // print("current value is"+_currPagevalue.toString());
       });
 
     });
@@ -59,16 +59,27 @@ class _FoodpagebodyState extends State<Foodpagebody> {
       Matrix4 matrix4 = Matrix4.identity();
       if(index == _currPagevalue.floor()) {
 
-        var currSacle = 1 -( _currPagevalue - index)* (1 - _scaleFacetory);
-        matrix4 = Matrix4.diagonal3Values(1, currSacle, 1);
+        var curSacle = 1-( _currPagevalue - index)* (1 - _scaleFacetory);
+        var currTran  = _height*(1 - curSacle)/2;
+        matrix4 = Matrix4.diagonal3Values(1, curSacle, 1)..setTranslationRaw(0,currTran , 0);
       }else if (index == _currPagevalue.floor() + 1){
 
-        var currSacle = _scaleFacetory + ( _currPagevalue - index + 1) * (1 - _scaleFacetory);
-        matrix4 = Matrix4.diagonal3Values(1, currSacle, 1);
+        var curSacle = _scaleFacetory + ( _currPagevalue - index + 1) * (1 - _scaleFacetory);
+        var currTran  = _height*(1 - curSacle)/2;
+        matrix4 = Matrix4.diagonal3Values(1, curSacle, 1);
+        matrix4 = Matrix4.diagonal3Values(1, curSacle, 1)..setTranslationRaw(0,currTran , 0);
+
+      }else if (index == _currPagevalue.floor() - 1){
+
+        var curSacle = 1-( _currPagevalue - index)* (1 - _scaleFacetory);
+        var currTran  = _height*(1 - curSacle)/2;
+        matrix4 = Matrix4.diagonal3Values(1, curSacle, 1);
+        matrix4 = Matrix4.diagonal3Values(1, curSacle, 1)..setTranslationRaw(0,currTran , 0);
 
       }
 
-  return Transform(
+
+      return Transform(
     transform: matrix4,
     child: Stack(
       children: [
