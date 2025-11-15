@@ -40,7 +40,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SmallText(text: 'VIquoc Quan', color: AppColors.textColor, size: 14,),
+                        SmallText(text: 'VI', color: AppColors.textColor, size: 14,),
                         Icon(Icons.arrow_drop_up,color: AppColors.textColor,size: 14,)
                       ],
 
@@ -57,7 +57,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
                   height: 45,
                   child: Icon(Icons.search, color: Colors.white,),
                   decoration: BoxDecoration(
-                    color: Colors.green,
+                    color: const Color.fromARGB(255, 0, 255, 8),
                     borderRadius: BorderRadius.circular(35)
                   ),
 
