@@ -39,8 +39,6 @@ class _FoodpagebodyState extends State<Foodpagebody> {
   }
 
 
-
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -52,7 +50,6 @@ class _FoodpagebodyState extends State<Foodpagebody> {
 
     );
   }
-
 
   Widget _BuildPageView(int index){
 
@@ -73,15 +70,14 @@ class _FoodpagebodyState extends State<Foodpagebody> {
     child: Stack(
       children: [
       Container(
-      height: 220,
+      height: 210,
       // padding: EdgeInsets.only(left: 15, right: 15),
       margin: EdgeInsets.only(left: 5, right: 5),
       decoration: BoxDecoration(
-          color: Colors.red,
-          borderRadius: BorderRadius.circular(15),
-        image: DecorationImage(
+          borderRadius: BorderRadius.circular(30),
+        image: const DecorationImage(
           fit: BoxFit.cover,
-          image: AssetImage('')
+          image: AssetImage("assets/image/Menu.png"),
         ),
     
       ),
@@ -90,19 +86,19 @@ class _FoodpagebodyState extends State<Foodpagebody> {
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
-            height: 120,
+            height: 115,
     
-            margin: EdgeInsets.only(left: 40, right: 40, bottom: 15),
+            margin: EdgeInsets.only(left: 45, right: 45, bottom: 15),
             decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(15)
+                color: const Color.fromARGB(255, 255, 255, 255),
+                borderRadius: BorderRadius.circular(30)
             ),
             child: Container(
               padding: EdgeInsets.only(left: 15,top: 10, right: 15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  BigText(text: 'VietNamese Food', color: AppColors.titleColor,),
+                  BigText(text: 'VietNamese Food', color: const Color.fromARGB(255, 0, 0, 0),),
                   SizedBox(height: 10,),
                   Row(
     
