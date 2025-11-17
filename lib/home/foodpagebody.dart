@@ -1,9 +1,11 @@
 
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/utils/colors.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/icon_and_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
+
 
 
 
@@ -41,14 +43,33 @@ class _FoodpagebodyState extends State<Foodpagebody> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Column(
+      children: [
+      Container(
       height: 330,
-        // color:Colors.lightGreenAccent,
-        child: PageView.builder(itemCount: 5, itemBuilder: (context, position){
-          return _BuildPageView(position);
-        }),
+      child: PageView.builder(
+          controller: pageController,
+          itemCount: 5, itemBuilder: (context, position){
+        return _BuildPageView(position);
+      }),
+
+    ),
+    new DotsIndicator(
+    dotsCount: 5,
+    position: _currPagevalue,
+    decorator: DotsDecorator(
+    activeColor: AppColors.mainColor,
+    size: const Size.square(9.0),
+    activeSize: const Size(18.0, 9.0),
+    activeShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+    ),
+    )
+
+      ],
 
     );
+
+
   }
 
   Widget _BuildPageView(int index){
@@ -81,7 +102,7 @@ class _FoodpagebodyState extends State<Foodpagebody> {
     child: Stack(
       children: [
       Container(
-      height: 210,
+      height: 220,
       // padding: EdgeInsets.only(left: 15, right: 15),
       margin: EdgeInsets.only(left: 5, right: 5),
       decoration: BoxDecoration(
@@ -97,7 +118,7 @@ class _FoodpagebodyState extends State<Foodpagebody> {
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
-            height: 115,
+            height: 120,
     
             margin: EdgeInsets.only(left: 45, right: 45, bottom: 15),
             decoration: BoxDecoration(
@@ -111,30 +132,36 @@ class _FoodpagebodyState extends State<Foodpagebody> {
                 children: [
                   BigText(text: 'VietNamese Food', color: const Color.fromARGB(255, 0, 0, 0),),
                   SizedBox(height: 10,),
+                  // Thay thế đoạn code của bạn bằng Row này:
+
                   Row(
-    
+                    // Không dùng spaceBetween nếu chỉ muốn hiển thị Rating
+                    // Nếu bạn muốn hiển thị thêm chi tiết (km, phút) ở bên phải, hãy thêm chúng vào đây.
                     children: [
-                      Wrap(
-                        children: [
-                          // Dùng Spread Operator (...) để trích xuất các Icons từ List.generate
-                          ...List.generate(
-                            5,
-                                (index) => Icon(
-                              Icons.star,
-                              color: AppColors.mainColor, // Hoặc AppColors.yellowColor
-                              size: 14,
-                            ),
-    
-                          ),
-                          SizedBox(width: 10,),
-                          SmallText(text: '5'),
-                          SizedBox(width: 10,),
-                          SmallText(text: '1278'),
-                          SizedBox(width: 10,),
-                          SmallText(text: 'Reviewer',)
-    
-                        ],
+                      // 1. Dãy 5 sao (Wrap không cần thiết ở đây, dùng Row hoặc Spread Operator là đủ)
+                      ...List.generate(
+                        5,
+                            (index) => Icon(
+                          Icons.star,
+                          color: AppColors.mainColor,
+                          size: 14,
+                        ),
                       ),
+
+                      // 2. Khoảng cách (Nếu bạn có thêm text/icon khác)
+                      SizedBox(width: 10),
+
+                      // 3. Điểm số (4.5)
+                      // SmallText(text: '4.5'), // Thường có điểm số bên cạnh
+                      // SizedBox(width: 10),
+
+                      // 4. Số lượng Review (1278)
+                      SmallText(text: '1278'),
+
+                      SizedBox(width: 5), // Khoảng cách nhỏ giữa số lượng và từ "Reviewer"
+
+                      // 5. Từ "Reviewer"
+                      SmallText(text: 'Reviewer'),
                     ],
                   ),
                   Row(
