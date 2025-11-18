@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/utils/dimensions.dart';
 
 class SmallText extends StatelessWidget {
   Color? color;
@@ -7,7 +8,7 @@ class SmallText extends StatelessWidget {
   TextOverflow overflow;
   SmallText({super.key, this.color = const Color(0xFFffcab88), required this.text,
 
-    this.size = 20,
+    this.size = 14,
     this.overflow = TextOverflow.ellipsis});
 
 
@@ -19,7 +20,7 @@ class SmallText extends StatelessWidget {
       style: TextStyle(
         color: color,
         fontWeight: FontWeight.w600,
-        fontSize: size,
+        fontSize: size  ==0?Dimensions.font12:size,
         fontFamily: 'Roboto',
 
       ),

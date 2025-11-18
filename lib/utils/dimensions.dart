@@ -1,30 +1,18 @@
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 
 class Dimensions {
   // Biến static để lưu chiều cao tổng của màn hình.
   // Chúng ta phải khởi tạo nó bên ngoài Widget build()
-  static double screenHeight = 0;
-  static double screenWidth = 0;
-
-  // Chiều cao thiết kế gốc (thường là 683,3 - bạn có thể thay đổi)
-  // Dùng giá trị tham khảo từ ảnh
-  static const double designHeight = 844; // Giá trị ví dụ cho iPhone 13 Pro
-  static const double designWidth = 390; // Giá trị ví dụ cho iPhone 13 Pro
+  static double screenHeight = Get.context!.height;
+  static double screenWidth =  Get.context!.width;
 
 
-  // --- KHỞI TẠO (Phải gọi trong hàm build() của Main Widget) ---
-  // Gọi hàm này để thiết lập screenHeight/screenWidth
-  static void init(BuildContext context) {
-    screenHeight = MediaQuery.of(context).size.height;
-    screenWidth = MediaQuery.of(context).size.width;
-  }
+  static double viewPage = screenHeight /2.64;
+  static double viewPageContainer = screenHeight /3.84;
+  static double viewPageTextContainer = screenHeight /7.03;
 
 
-  // --- KÍCH THƯỚC CHIỀU CAO (HEIGHT) DYNAMIC ---
-  // Sử dụng screenHeight để tính toán tỉ lệ (ví dụ: designHeight / 10 = 84.4)
-
-  // Tỉ lệ: Chiều cao thiết kế / Giá trị mong muốn
-  // Ví dụ: height10 = 844 / 84.4
   static double height10 = screenHeight / 84.4;
   static double height15 = screenHeight / 56.27; // 844 / 15
   static double height20 = screenHeight / 42.2;  // 844 / 20
@@ -37,6 +25,7 @@ class Dimensions {
   // Mặc dù việc tính toán dựa trên screenWidth tốt hơn,
   // nhưng nếu làm theo mẫu, chúng ta dùng tỉ lệ Height:
 
+  static double width5 = screenHeight / 168.8;
   static double width10 = screenHeight / 84.4;
   static double width15 = screenHeight / 56.27;
   static double width20 = screenHeight / 42.2;
@@ -56,10 +45,18 @@ class Dimensions {
   static double radius30 = screenHeight / 28.13;
 
 
-  // --- KÍCH THƯỚC CỤ THỂ KHÁC ---
-  // Ví dụ cho chiều cao slider trên trang chính
-  static double pageView = screenHeight / 2.64; // Ví dụ: 844 / 2.64 ≈ 320
-  static double pageViewContainer = screenHeight / 3.84; // Phần Container bên trong Slider
-  static double pageViewTextContainer = screenHeight / 7.03; // Phần Text/Footer của Slider
+
+
+// --- TOP LEFT RIGT BOTTOM ----
+  static double top5 = screenHeight / 168.8;
+  static double top10 = screenHeight / 84.4;
+  static double top15 = screenHeight / 56.27;
+  static double top20 = screenHeight / 42.2;
+  static double top30 = screenHeight / 28.13;
+  static double top45 = screenHeight / 18.75;
+
+
+
+
 
 }

@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/home/foodpagebody.dart';
 
 import 'package:food_delivery_app/utils/colors.dart';
+import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
 class MainFoodPage  extends StatefulWidget {
@@ -29,19 +30,19 @@ class _MainFoodPageState extends State<MainFoodPage> {
 
           /**Header **/
           Container(
-            margin: EdgeInsets.only(top: 45, bottom: 15),
-            padding: EdgeInsets.only(left: 20, right: 20),
+            margin: EdgeInsets.only(top: Dimensions.top45, bottom: Dimensions.top15),
+            padding: EdgeInsets.only(left: Dimensions.top20, right: Dimensions.top20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween ,
               children: [
                 Column(
                   children: [
-                    BigText(text: 'VietNam',color:AppColors.mainBlackColor , size: 20,),
+                    BigText(text: 'VietNam',color:AppColors.mainBlackColor , size: Dimensions.font20,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SmallText(text: 'VI', color: AppColors.textColor, size: 14,),
-                        Icon(Icons.arrow_drop_up,color: AppColors.textColor,size: 14,)
+                        SmallText(text: 'VI', color: AppColors.textColor, size: Dimensions.font12,),
+                        Icon(Icons.arrow_drop_up,color: AppColors.textColor,size: Dimensions.font12,)
                       ],
 
                     ),

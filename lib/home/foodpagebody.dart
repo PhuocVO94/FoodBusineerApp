@@ -2,9 +2,11 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/utils/colors.dart';
+import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/icon_and_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
+import 'package:get/get.dart';
 
 
 
@@ -29,7 +31,7 @@ class _FoodpagebodyState extends State<Foodpagebody> {
       setState(() {
 
         _currPagevalue = pageController.page!;
-          // print("current value is"+_currPagevalue.toString());
+          // print("current value is"+ MediaQuery.of(context).size.toString());
       });
 
     });
@@ -63,7 +65,7 @@ class _FoodpagebodyState extends State<Foodpagebody> {
     activeSize: const Size(18.0, 9.0),
     activeShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
     ),
-    )
+    ),
 
       ],
 
@@ -102,11 +104,11 @@ class _FoodpagebodyState extends State<Foodpagebody> {
     child: Stack(
       children: [
       Container(
-      height: 220,
+      height: Dimensions.viewPageContainer,
       // padding: EdgeInsets.only(left: 15, right: 15),
-      margin: EdgeInsets.only(left: 5, right: 5),
+      margin: EdgeInsets.only(left: Dimensions.top5, right: Dimensions.top5),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(Dimensions.radius30),
         image: const DecorationImage(
           fit: BoxFit.cover,
           image: AssetImage("assets/image/Menu.png"),
@@ -118,25 +120,21 @@ class _FoodpagebodyState extends State<Foodpagebody> {
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
-            height: 120,
+            height: Dimensions.viewPageTextContainer,
     
-            margin: EdgeInsets.only(left: 45, right: 45, bottom: 15),
+            margin: EdgeInsets.only(left: Dimensions.top30, right: Dimensions.top30, bottom: Dimensions.top20),
             decoration: BoxDecoration(
                 color: const Color.fromARGB(255, 255, 255, 255),
-                borderRadius: BorderRadius.circular(30)
+                borderRadius: BorderRadius.circular(Dimensions.radius30)
             ),
             child: Container(
-              padding: EdgeInsets.only(left: 15,top: 10, right: 15),
+              padding: EdgeInsets.only(left: Dimensions.top15,top: Dimensions.top10, right: Dimensions.top15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  BigText(text: 'VietNamese Food', color: const Color.fromARGB(255, 0, 0, 0),),
-                  SizedBox(height: 10,),
-                  // Thay thế đoạn code của bạn bằng Row này:
-
+                  BigText(text: 'VietNamese Food', color: const Color.fromARGB(255, 0, 0, 0)),
+                  SizedBox(height: Dimensions.height10,),
                   Row(
-                    // Không dùng spaceBetween nếu chỉ muốn hiển thị Rating
-                    // Nếu bạn muốn hiển thị thêm chi tiết (km, phút) ở bên phải, hãy thêm chúng vào đây.
                     children: [
                       // 1. Dãy 5 sao (Wrap không cần thiết ở đây, dùng Row hoặc Spread Operator là đủ)
                       ...List.generate(
@@ -144,26 +142,27 @@ class _FoodpagebodyState extends State<Foodpagebody> {
                             (index) => Icon(
                           Icons.star,
                           color: AppColors.mainColor,
-                          size: 14,
+                          size: Dimensions.font12,
                         ),
                       ),
 
                       // 2. Khoảng cách (Nếu bạn có thêm text/icon khác)
-                      SizedBox(width: 10),
+                      SizedBox(width: Dimensions.width10),
 
-                      // 3. Điểm số (4.5)
-                      // SmallText(text: '4.5'), // Thường có điểm số bên cạnh
-                      // SizedBox(width: 10),
+                      SizedBox(width: Dimensions.width5),
+                      SmallText(text: '4.5'), // Thường có điểm số bên cạnh
+                      SizedBox(width: Dimensions.width10),
 
                       // 4. Số lượng Review (1278)
                       SmallText(text: '1278'),
 
-                      SizedBox(width: 5), // Khoảng cách nhỏ giữa số lượng và từ "Reviewer"
+                      SizedBox(width: Dimensions.width10), // Khoảng cách nhỏ giữa số lượng và từ "Reviewer"
 
                       // 5. Từ "Reviewer"
                       SmallText(text: 'Reviewer'),
                     ],
                   ),
+                  SizedBox(height: Dimensions.height10,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -184,4 +183,5 @@ class _FoodpagebodyState extends State<Foodpagebody> {
   );
 
   }
+
 }
