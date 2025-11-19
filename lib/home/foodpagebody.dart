@@ -67,6 +67,98 @@ class _FoodpagebodyState extends State<Foodpagebody> {
     ),
     ),
 
+    SizedBox(height: Dimensions.top30,),
+    // COntainer text
+    Container(
+      margin: EdgeInsets.only(left: Dimensions.top10),
+        child: Row(
+          children: [
+            BigText(text: 'Popular', size: Dimensions.font20, color: AppColors.signColor,),
+            SizedBox(width: Dimensions.width10,),
+            Container(
+              margin: EdgeInsets.only(bottom: 3),
+              child: BigText(text: ".", color: Colors.black26,),
+            ),
+            SizedBox(width: Dimensions.top10,),
+            Container(
+              child: SmallText(text: 'We have a new menu today'),
+            )
+          ],
+        ),
+    ), SizedBox(height: Dimensions.top30,),
+
+
+          ListView.builder(
+            physics: BouncingScrollPhysics (),
+            shrinkWrap: true,
+            itemCount: 10,
+            itemBuilder: ( context, index) {
+              // This function must return a Widget
+              return Container(
+                  margin: EdgeInsets.only( left: Dimensions.width20, right: Dimensions.width20, bottom: Dimensions.height10),
+
+                  child: Row(
+                    children: [
+                      // Container Images
+                      Container(
+                        width:Dimensions.viewPicture,
+                          height: Dimensions.viewPicture,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(Dimensions.radius20),
+                            color: Colors.white38,
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: AssetImage("assets/image/Bread.png"),
+
+                            ),
+                          )
+                      ),
+                    //   Container Text
+                      Expanded(
+                        child: Container(
+
+                          height: Dimensions.listViewTextContSize,
+                          // width: 200,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(Dimensions.radius20),
+                              bottomRight: Radius.circular(Dimensions.radius20),
+                            ),
+                            color: Colors.white,
+                          ),
+                          child: Padding(
+
+                            padding: EdgeInsets.only(left: Dimensions.width10, top: Dimensions.height10, bottom: Dimensions.height10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                              children: [
+                                BigText(text: 'Banh My'),
+                                SizedBox(height: Dimensions.height10,),
+                                SmallText(text: 'ADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD',size: Dimensions.font12,),
+                                SizedBox(height: Dimensions.height10,),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    IconAndTextWidget(icon: Icons.circle, text: 'Momar', iconColor: AppColors.yellowColor, color: AppColors.textColor,iconSize:  Dimensions.font12,),
+                                    IconAndTextWidget(icon: Icons.location_on, text: '1.7 km', iconColor: AppColors.yellowColor, color: AppColors.textColor,iconSize:  Dimensions.font12 ),
+                                    IconAndTextWidget(icon: Icons.timeline_outlined, text: '32 min', iconColor: AppColors.yellowColor, color: AppColors.textColor,iconSize:  Dimensions.font12)
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  )
+              );
+            },
+          ),
+
+
+
       ],
 
     );
@@ -166,9 +258,9 @@ class _FoodpagebodyState extends State<Foodpagebody> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      IconAndTextWidget(icon: Icons.circle, text: 'Momar', iconColor: AppColors.yellowColor, color: AppColors.textColor),
-                      IconAndTextWidget(icon: Icons.location_on, text: '1.7 km', iconColor: AppColors.yellowColor, color: AppColors.textColor),
-                      IconAndTextWidget(icon: Icons.timeline_outlined, text: '32 min', iconColor: AppColors.yellowColor, color: AppColors.textColor)
+                      IconAndTextWidget(icon: Icons.circle, text: 'Momar', iconColor: AppColors.yellowColor, color: AppColors.textColor,iconSize:  Dimensions.font12),
+                      IconAndTextWidget(icon: Icons.location_on, text: '1.7 km', iconColor: AppColors.yellowColor, color: AppColors.textColor,iconSize:  Dimensions.font12),
+                      IconAndTextWidget(icon: Icons.timeline_outlined, text: '32 min', iconColor: AppColors.yellowColor, color: AppColors.textColor,iconSize:  Dimensions.font12)
                     ],
                   )
                 ],

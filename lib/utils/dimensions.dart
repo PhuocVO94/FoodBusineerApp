@@ -57,6 +57,15 @@ class Dimensions {
 
 
 
+  // IconCreen
+
+  static double icon24 = screenHeight / 25.7;
+
+
+//   View Picture
+  static double viewPicture = screenHeight / 7.1;
+  static double listViewTextContSize = screenHeight / 8.44;
+
 
 
 }

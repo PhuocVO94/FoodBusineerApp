@@ -56,7 +56,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
                 Container(
                   width: 45,
                   height: 45,
-                  child: Icon(Icons.search, color: Colors.white,),
+                  child: Icon(Icons.search, color: Colors.white,size: Dimensions.icon24,),
                   decoration: BoxDecoration(
                     color: const Color.fromARGB(255, 0, 255, 8),
                     borderRadius: BorderRadius.circular(35)
@@ -72,7 +72,10 @@ class _MainFoodPageState extends State<MainFoodPage> {
 
 
           /**Slug **/
-          Foodpagebody()
+          Expanded(child: SingleChildScrollView(
+            child:  Foodpagebody(),
+          ))
+          // Foodpagebody(),
 
         ],
 
