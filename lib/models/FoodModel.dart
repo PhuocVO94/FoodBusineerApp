@@ -29,7 +29,7 @@ final List<FoodModel> vietnameseFoods = [
   FoodModel(
     id: 1,
     name: "Phở Bò Tái Nạm",
-    image: "https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    image: "https://imgs.vietnamnet.vn/Images/vnn/2014/08/25/11/20140825110155-bo.jpg?width=0&s=dk-0wXAEOKKgu_B0mZTj7g",
     description: "Phở là món ăn truyền thống của Việt Nam, với nước dùng ninh từ xương bò trong nhiều giờ.",
     price: 50000,
     rating: 4.8,
@@ -43,7 +43,7 @@ final List<FoodModel> vietnameseFoods = [
   FoodModel(
     id: 2,
     name: "Bánh Mì Thập Cẩm",
-    image: "https://images.unsplash.com/photo-1626804475315-0937501f39f8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    image: "https://cdn2.fptshop.com.vn/unsafe/800x0/banh_mi_thap_cam_1_53ffdd133d.jpg",
     description: "Bánh mì Việt Nam giòn rụm, nhân pate gan, thịt nguội, chả lụa.",
     price: 25000,
     rating: 4.5,
@@ -79,7 +79,7 @@ final List<FoodModel> vietnameseFoods = [
   FoodModel(
     id: 5,
     name: "Cơm Tấm Sườn",
-    image: "https://images.unsplash.com/photo-1589227170949-a7442762d6f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    image: "https://cdn.tgdd.vn/2021/08/CookProduct/t1-1200x676.jpg",
     description: "Cơm tấm Sài Gòn với sườn nướng mật ong, chả trứng, bì heo.",
     price: 45000,
     rating: 4.6,

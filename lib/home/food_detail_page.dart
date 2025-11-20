@@ -55,7 +55,7 @@ class FoodDetailPage extends StatelessWidget {
                 image: DecorationImage(
                   fit: BoxFit.cover,
                   // Đảm bảo food.image là chuỗi URL hợp lệ
-                  image: NetworkImage(food.image), 
+                  image: NetworkImage(food.image)
                 ),
               ),
             ),

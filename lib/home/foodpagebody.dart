@@ -100,10 +100,11 @@ class _FoodPageBodyState extends State<FoodPageBody> {
 
         // --- DANH SÁCH MÓN ĂN (LIST VIEW) ---
         ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
+          physics: AlwaysScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: vietnameseFoods.length,
           itemBuilder: (context, index) {
+
             FoodModel food = vietnameseFoods[index]; // Lấy dữ liệu món ăn
 
             return GestureDetector(
@@ -166,6 +167,9 @@ class _FoodPageBodyState extends State<FoodPageBody> {
       ],
     );
   }
+
+
+  // Scalle Page ITem
 
   Widget _buildPageItem(int index, FoodModel food) {
     Matrix4 matrix = Matrix4.identity();
