@@ -1,279 +1,277 @@
-
-import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/utils/colors.dart';
-import 'package:food_delivery_app/utils/dimensions.dart';
-import 'package:food_delivery_app/widgets/big_text.dart';
-import 'package:food_delivery_app/widgets/icon_and_text.dart';
-import 'package:food_delivery_app/widgets/small_text.dart';
-import 'package:get/get.dart';
+// CÁC DÒNG IMPORT QUAN TRỌNG - ĐÃ CHỈNH KHỚP VỚI ẢNH CỦA BẠN
+import '../utils/colors.dart';
+import '../widgets/big_text.dart';
+import '../widgets/icon_and_text.dart'; 
+import '../widgets/small_text.dart';
+import '../models/FoodModel.dart'; // Import file model.dart bạn vừa sửa
+import 'food_detail_page.dart'; // Import trang chi tiết bạn vừa tạo cùng thư mục
 
+class IconAndTextWidget extends StatelessWidget {
+  final IconData icon;
+  final String text;
+  final Color iconColor;
 
-
-
-class Foodpagebody extends StatefulWidget {
-
-  const Foodpagebody({super.key});
+  const IconAndTextWidget({
+    Key? key,
+    required this.icon,
+    required this.text,
+    required this.iconColor,
+  }) : super(key: key);
 
   @override
-  State<Foodpagebody> createState() => _FoodpagebodyState();
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        // 1. Icon
+        Icon(icon, color: iconColor, size: 24),
+        // 2. Khoảng cách
+        const SizedBox(width: 5),
+        // 3. Chữ (Text)
+        SmallText(text: text, color: AppColors.paraColor),
+      ],
+    );
+  }
 }
 
-class _FoodpagebodyState extends State<Foodpagebody> {
-  PageController pageController = PageController(viewportFraction: 0.85);
-  var _currPagevalue = 0.0;
-  final double _scaleFacetory = 0.8;
-  final double _height = 220;
+class FoodPageBody extends StatefulWidget {
+  const FoodPageBody({Key? key}) : super(key: key);
+
   @override
-  void initState(){
+  State<FoodPageBody> createState() => _FoodPageBodyState();
+}
+
+class _FoodPageBodyState extends State<FoodPageBody> {
+  PageController pageController = PageController(viewportFraction: 0.85);
+  var _currPageValue = 0.0;
+  final double _scaleFactor = 0.8;
+  final double _height = 220;
+
+  @override
+  void initState() {
     super.initState();
     pageController.addListener(() {
       setState(() {
-
-        _currPagevalue = pageController.page!;
-          // print("current value is"+ MediaQuery.of(context).size.toString());
+        _currPageValue = pageController.page!;
       });
-
     });
-
   }
+
   @override
   void dispose() {
-      pageController.dispose();
+    pageController.dispose();
+    super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-      SizedBox(
-      height: 330,
-      child: PageView.builder(
-          controller: pageController,
-          itemCount: 5, itemBuilder: (context, position){
-        return _BuildPageView(position);
-      }),
-
-    ),
-    DotsIndicator(
-    dotsCount: 5,
-    position: _currPagevalue,
-    decorator: DotsDecorator(
-    activeColor: AppColors.mainColor,
-    size: const Size.square(9.0),
-    activeSize: const Size(18.0, 9.0),
-    activeShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-    ),
-    ),
-
-    SizedBox(height: Dimensions.top30,),
-    // COntainer text
-    Container(
-      margin: EdgeInsets.only(left: Dimensions.top10),
-        child: Row(
-          children: [
-            BigText(text: 'Popular', size: Dimensions.font20, color: AppColors.signColor,),
-            SizedBox(width: Dimensions.width10,),
-            Container(
-              margin: EdgeInsets.only(bottom: 3),
-              child: BigText(text: ".", color: Colors.black26,),
-            ),
-            SizedBox(width: Dimensions.top10,),
-            Container(
-              child: SmallText(text: 'We have a new menu today'),
-            )
-          ],
-        ),
-    ), SizedBox(height: Dimensions.top30,),
-
-
-          ListView.builder(
-            physics: BouncingScrollPhysics (),
-            shrinkWrap: true,
-            itemCount: 10,
-            itemBuilder: ( context, index) {
-              // This function must return a Widget
-              return Container(
-                  margin: EdgeInsets.only( left: Dimensions.width20, right: Dimensions.width20, bottom: Dimensions.height10),
-
-                  child: Row(
-                    children: [
-                      // Container Images
-                      Container(
-                        width:Dimensions.viewPicture,
-                          height: Dimensions.viewPicture,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(Dimensions.radius20),
-                            color: Colors.white38,
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: AssetImage("assets/image/Bread.png"),
-
-                            ),
-                          )
-                      ),
-                    //   Container Text
-                      Expanded(
-                        child: Container(
-
-                          height: Dimensions.listViewTextContSize,
-                          // width: 200,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(Dimensions.radius20),
-                              bottomRight: Radius.circular(Dimensions.radius20),
-                            ),
-                            color: Colors.white,
-                          ),
-                          child: Padding(
-
-                            padding: EdgeInsets.only(left: Dimensions.width10, top: Dimensions.height10, bottom: Dimensions.height10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                              children: [
-                                BigText(text: 'Banh My'),
-                                SizedBox(height: Dimensions.height10,),
-                                SmallText(text: 'ADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD',size: Dimensions.font12,),
-                                SizedBox(height: Dimensions.height10,),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    IconAndTextWidget(icon: Icons.circle, text: 'Momar', iconColor: AppColors.yellowColor, color: AppColors.textColor,iconSize:  Dimensions.font12,),
-                                    IconAndTextWidget(icon: Icons.location_on, text: '1.7 km', iconColor: AppColors.yellowColor, color: AppColors.textColor,iconSize:  Dimensions.font12 ),
-                                    IconAndTextWidget(icon: Icons.timeline_outlined, text: '32 min', iconColor: AppColors.yellowColor, color: AppColors.textColor,iconSize:  Dimensions.font12)
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  )
-              );
+        // --- SLIDER (PAGEVIEW) ---
+        Container(
+          height: 320,
+          child: PageView.builder(
+            controller: pageController,
+            itemCount: vietnameseFoods.length > 5 ? 5 : vietnameseFoods.length,
+            itemBuilder: (context, position) {
+              return _buildPageItem(position, vietnameseFoods[position]);
             },
           ),
-
-
-
-      ],
-
-    );
-
-
-  }
-
-  Widget _BuildPageView(int index){
-
-      Matrix4 matrix4 = Matrix4.identity();
-      if(index == _currPagevalue.floor()) {
-
-        var curSacle = 1-( _currPagevalue - index)* (1 - _scaleFacetory);
-        var currTran  = _height*(1 - curSacle)/2;
-        matrix4 = Matrix4.diagonal3Values(1, curSacle, 1)..setTranslationRaw(0,currTran , 0);
-      }else if (index == _currPagevalue.floor() + 1){
-
-        var curSacle = _scaleFacetory + ( _currPagevalue - index + 1) * (1 - _scaleFacetory);
-        var currTran  = _height*(1 - curSacle)/2;
-        matrix4 = Matrix4.diagonal3Values(1, curSacle, 1);
-        matrix4 = Matrix4.diagonal3Values(1, curSacle, 1)..setTranslationRaw(0,currTran , 0);
-
-      }else if (index == _currPagevalue.floor() - 1){
-
-        var curSacle = 1-( _currPagevalue - index)* (1 - _scaleFacetory);
-        var currTran  = _height*(1 - curSacle)/2;
-        matrix4 = Matrix4.diagonal3Values(1, curSacle, 1);
-        matrix4 = Matrix4.diagonal3Values(1, curSacle, 1)..setTranslationRaw(0,currTran , 0);
-
-      }
-
-
-      return Transform(
-    transform: matrix4,
-    child: Stack(
-      children: [
-      Container(
-      height: Dimensions.viewPageContainer,
-      // padding: EdgeInsets.only(left: 15, right: 15),
-      margin: EdgeInsets.only(left: Dimensions.top5, right: Dimensions.top5),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(Dimensions.radius30),
-        image: const DecorationImage(
-          fit: BoxFit.cover,
-          image: AssetImage("assets/image/Menu.png"),
         ),
-    
-      ),
-    
-      ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(
-            height: Dimensions.viewPageTextContainer,
-    
-            margin: EdgeInsets.only(left: Dimensions.top30, right: Dimensions.top30, bottom: Dimensions.top20),
-            decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 255, 255, 255),
-                borderRadius: BorderRadius.circular(Dimensions.radius30)
-            ),
-            child: Container(
-              padding: EdgeInsets.only(left: Dimensions.top15,top: Dimensions.top10, right: Dimensions.top15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  BigText(text: 'VietNamese Food', color: const Color.fromARGB(255, 0, 0, 0)),
-                  SizedBox(height: Dimensions.height10,),
-                  Row(
-                    children: [
-                      // 1. Dãy 5 sao (Wrap không cần thiết ở đây, dùng Row hoặc Spread Operator là đủ)
-                      ...List.generate(
-                        5,
-                            (index) => Icon(
-                          Icons.star,
-                          color: AppColors.mainColor,
-                          size: Dimensions.font12,
+        
+        // --- DOTS INDICATOR ---
+        new DotsIndicator(pageValue: _currPageValue),
+
+        // --- TIÊU ĐỀ DANH SÁCH ---
+        SizedBox(height: 30),
+        Container(
+          margin: EdgeInsets.only(left: 30),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              BigText(text: "Thực đơn Việt"),
+              SizedBox(width: 10),
+              Container(margin: EdgeInsets.only(bottom: 3), child: BigText(text: ".", color: Colors.black26)),
+              SizedBox(width: 10),
+              Container(margin: EdgeInsets.only(bottom: 2), child: SmallText(text: "Hương vị quê hương")),
+            ],
+          ),
+        ),
+
+        // --- DANH SÁCH MÓN ĂN (LIST VIEW) ---
+        ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: vietnameseFoods.length,
+          itemBuilder: (context, index) {
+            FoodModel food = vietnameseFoods[index]; // Lấy dữ liệu món ăn
+
+            return GestureDetector(
+              // SỰ KIỆN BẤM VÀO MÓN ĂN
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => FoodDetailPage(food: food)));
+              },
+              child: Container(
+                margin: EdgeInsets.only(left: 20, right: 20, bottom: 10),
+                child: Row(
+                  children: [
+                    // Hình ảnh
+                    Container(
+                      width: 120,
+                      height: 120,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.white38,
+                        image: DecorationImage(fit: BoxFit.cover, image: NetworkImage(food.image)),
+                      ),
+                    ),
+                    // Thông tin chi tiết
+                    Expanded(
+                      child: Container(
+                        height: 100,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(topRight: Radius.circular(20), bottomRight: Radius.circular(20)),
+                          color: Colors.white,
+                          boxShadow: [BoxShadow(color: Color(0xFFe8e8e8), blurRadius: 5.0, offset: Offset(0, 5))],
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 10, right: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              BigText(text: food.name), // Tên món ăn từ Model
+                              SizedBox(height: 10),
+                              SmallText(text: food.description, overflow: TextOverflow.ellipsis), // Mô tả ngắn gọn
+                              SizedBox(height: 10),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  IconAndTextWidget(icon: Icons.circle_sharp, text: "Normal", iconColor: AppColors.iconColor1),
+                                  IconAndTextWidget(icon: Icons.location_on, text: food.location, iconColor: AppColors.mainColor),
+                                  IconAndTextWidget(icon: Icons.access_time_rounded, text: food.time, iconColor: AppColors.iconColor2),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-
-                      // 2. Khoảng cách (Nếu bạn có thêm text/icon khác)
-                      SizedBox(width: Dimensions.width10),
-
-                      SizedBox(width: Dimensions.width5),
-                      SmallText(text: '4.5'), // Thường có điểm số bên cạnh
-                      SizedBox(width: Dimensions.width10),
-
-                      // 4. Số lượng Review (1278)
-                      SmallText(text: '1278'),
-
-                      SizedBox(width: Dimensions.width10), // Khoảng cách nhỏ giữa số lượng và từ "Reviewer"
-
-                      // 5. Từ "Reviewer"
-                      SmallText(text: 'Reviewer'),
-                    ],
-                  ),
-                  SizedBox(height: Dimensions.height10,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconAndTextWidget(icon: Icons.circle, text: 'Momar', iconColor: AppColors.yellowColor, color: AppColors.textColor,iconSize:  Dimensions.font12),
-                      IconAndTextWidget(icon: Icons.location_on, text: '1.7 km', iconColor: AppColors.yellowColor, color: AppColors.textColor,iconSize:  Dimensions.font12),
-                      IconAndTextWidget(icon: Icons.timeline_outlined, text: '32 min', iconColor: AppColors.yellowColor, color: AppColors.textColor,iconSize:  Dimensions.font12)
-                    ],
-                  )
-                ],
+                    ),
+                  ],
+                ),
               ),
-    
-            )
-          ),
-        )
+            );
+          },
+        ),
       ],
-    
-    ),
-  );
-
+    );
   }
 
+  Widget _buildPageItem(int index, FoodModel food) {
+    Matrix4 matrix = Matrix4.identity();
+    if (index == _currPageValue.floor()) {
+      var currScale = 1 - (_currPageValue - index) * (1 - _scaleFactor);
+      var currTrans = _height * (1 - currScale) / 2;
+      matrix = Matrix4.diagonal3Values(1, currScale, 1)..setTranslationRaw(0, currTrans, 0);
+    } else if (index == _currPageValue.floor() + 1) {
+      var currScale = _scaleFactor + (_currPageValue - index + 1) * (1 - _scaleFactor);
+      var currTrans = _height * (1 - currScale) / 2;
+      matrix = Matrix4.diagonal3Values(1, currScale, 1)..setTranslationRaw(0, currTrans, 0);
+    } else {
+      var currScale = 0.8;
+      matrix = Matrix4.diagonal3Values(1, currScale, 1)..setTranslationRaw(0, _height * (1 - _scaleFactor) / 2, 0);
+    }
+
+    return Transform(
+      transform: matrix,
+      child: GestureDetector(
+        onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => FoodDetailPage(food: food)));
+        },
+        child: Stack(
+          children: [
+            Container(
+              height: 220,
+              margin: EdgeInsets.only(left: 10, right: 10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                color: index.isEven ? Color(0xFF69c5df) : Color(0xFF9294cc),
+                image: DecorationImage(fit: BoxFit.cover, image: NetworkImage(food.image)),
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                height: 120,
+                margin: EdgeInsets.only(left: 30, right: 30, bottom: 30),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(color: Color(0xFFe8e8e8), blurRadius: 5.0, offset: Offset(0, 5)),
+                    BoxShadow(color: Colors.white, offset: Offset(-5, 0)),
+                    BoxShadow(color: Colors.white, offset: Offset(5, 0)),
+                  ],
+                ),
+                child: Container(
+                  padding: EdgeInsets.only(top: 15, left: 15, right: 15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      BigText(text: food.name),
+                      SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Wrap(children: List.generate(5, (index) => Icon(Icons.star, color: AppColors.mainColor, size: 15))),
+                          SizedBox(width: 10),
+                          SmallText(text: "${food.rating}"),
+                          SizedBox(width: 10),
+                          SmallText(text: "${food.commentsCount}"),
+                          SizedBox(width: 10),
+                          SmallText(text: "comments"),
+                        ],
+                      ),
+                      SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconAndTextWidget(icon: Icons.circle_sharp, text: "Normal", iconColor: AppColors.iconColor1),
+                          IconAndTextWidget(icon: Icons.location_on, text: food.location, iconColor: AppColors.mainColor),
+                          IconAndTextWidget(icon: Icons.access_time_rounded, text: food.time, iconColor: AppColors.iconColor2),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// Helper widget cho Dots Indicator
+class DotsIndicator extends StatelessWidget {
+  final double pageValue;
+  const DotsIndicator({Key? key, required this.pageValue}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(5, (index) {
+        return Container(
+          margin: EdgeInsets.symmetric(horizontal: 2),
+          width: pageValue.round() == index ? 10 : 8,
+          height: pageValue.round() == index ? 10 : 8,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: pageValue.round() == index ? AppColors.mainColor : Colors.grey,
+          ),
+        );
+      }),
+    );
+  }
 }

@@ -53,10 +53,10 @@ packages:
     dependency: "direct main"
     description:
       name: dots_indicator
-      sha256: c070af5058a084ba7b354df4b4c26c719595d70a3531eea6edd8af8716684ba3
+      sha256: "2a53e0321a3f0d87e38ef30f6e9ff1deb5d6c0e2c5708e057d26cdaa94a95f10"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.1"
+    version: "3.1.0"
   fake_async:
     dependency: transitive
     description:
