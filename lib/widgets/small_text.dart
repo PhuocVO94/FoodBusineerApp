@@ -2,31 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 
 class SmallText extends StatelessWidget {
-  Color? color;
+  final Color? color;
   final String text;
-  double size;
-  TextOverflow overflow;
-  SmallText({super.key, this.color = const Color(0xffffcab88), required this.text,
+  final double size;
+  final double height;
+  final TextOverflow overflow;   // ✅ THÊM THUỘC TÍNH OVERFLOW
 
-    this.size = 14,
-    this.overflow = TextOverflow.ellipsis});
-
+  const SmallText({
+    Key? key,
+    this.color = const Color(0xFFccc7c5),
+    required this.text,
+    this.size = 12,
+    this.height = 1.2,
+    this.overflow = TextOverflow.ellipsis,   // ✅ THÊM DEFAULT VALUE
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
-      overflow: overflow,
+      maxLines: 1,               // ✅ THÊM maxLines
+      overflow: overflow,        // ✅ TRUYỀN overflow
       style: TextStyle(
-        color: color,
-        fontWeight: FontWeight.w600,
-        fontSize: size  ==0?Dimensions.font12:size,
         fontFamily: 'Roboto',
-
+        color: color,
+        fontSize: size,
+        height: height,
       ),
-
-
-
     );
   }
 }
