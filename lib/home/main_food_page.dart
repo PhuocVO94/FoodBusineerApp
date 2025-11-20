@@ -4,6 +4,7 @@
 Day la thu vien chinh chay cho android va ios moi nguoi la chu y su dung thu vien cho chinh xacs
 anh co thay doi 1 so thu vien moi nguoi nho doc ky thu vien truoc khi dung
 **/
+library;
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/home/foodpagebody.dart';
 
@@ -12,7 +13,7 @@ import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
 class MainFoodPage  extends StatefulWidget {
-  const MainFoodPage({Key? key}): super(key: key);
+  const MainFoodPage({super.key});
 
   @override
    _MainFoodPageState createState() => _MainFoodPageState();
@@ -56,11 +57,11 @@ class _MainFoodPageState extends State<MainFoodPage> {
                 Container(
                   width: 45,
                   height: 45,
-                  child: Icon(Icons.search, color: Colors.white,size: Dimensions.icon24,),
                   decoration: BoxDecoration(
                     color: const Color.fromARGB(255, 0, 255, 8),
                     borderRadius: BorderRadius.circular(35)
                   ),
+                  child: Icon(Icons.search, color: Colors.white,size: Dimensions.icon24,),
 
                 )
 
