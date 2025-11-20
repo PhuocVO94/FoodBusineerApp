@@ -22,8 +22,8 @@ class Foodpagebody extends StatefulWidget {
 class _FoodpagebodyState extends State<Foodpagebody> {
   PageController pageController = PageController(viewportFraction: 0.85);
   var _currPagevalue = 0.0;
-  double _scaleFacetory = 0.8;
-  double _height = 220;
+  final double _scaleFacetory = 0.8;
+  final double _height = 220;
   @override
   void initState(){
     super.initState();
@@ -47,7 +47,7 @@ class _FoodpagebodyState extends State<Foodpagebody> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-      Container(
+      SizedBox(
       height: 330,
       child: PageView.builder(
           controller: pageController,
@@ -56,7 +56,7 @@ class _FoodpagebodyState extends State<Foodpagebody> {
       }),
 
     ),
-    new DotsIndicator(
+    DotsIndicator(
     dotsCount: 5,
     position: _currPagevalue,
     decorator: DotsDecorator(
