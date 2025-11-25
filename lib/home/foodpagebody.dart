@@ -64,8 +64,9 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
+Widget build(BuildContext context) {
+  return SingleChildScrollView( 
+    child: Column(
       children: [
         // --- SLIDER (PAGEVIEW) ---
         Container(
@@ -100,7 +101,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
 
         // --- DANH SÁCH MÓN ĂN (LIST VIEW) ---
         ListView.builder(
-          physics: AlwaysScrollableScrollPhysics(),
+          physics: NeverScrollableScrollPhysics(), 
           shrinkWrap: true,
           itemCount: vietnameseFoods.length,
           itemBuilder: (context, index) {
@@ -165,12 +166,12 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           },
         ),
       ],
-    );
-  }
-
+    ),
+  ); 
+}
 
   // Scalle Page ITem
-
+  
   Widget _buildPageItem(int index, FoodModel food) {
     Matrix4 matrix = Matrix4.identity();
     if (index == _currPageValue.floor()) {
