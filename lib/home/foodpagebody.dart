@@ -1,38 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/utils/dimensions.dart';
 // CÁC DÒNG IMPORT QUAN TRỌNG - ĐÃ CHỈNH KHỚP VỚI ẢNH CỦA BẠN
 import '../utils/colors.dart';
 import '../widgets/big_text.dart';
-import '../widgets/icon_and_text.dart'; 
+import '../widgets/icon_and_text.dart' hide IconAndTextWidget;
 import '../widgets/small_text.dart';
 import '../models/FoodModel.dart'; // Import file model.dart bạn vừa sửa
 import 'food_detail_page.dart'; // Import trang chi tiết bạn vừa tạo cùng thư mục
 
-class IconAndTextWidget extends StatelessWidget {
-  final IconData icon;
-  final String text;
-  final Color iconColor;
-
-  const IconAndTextWidget({
-    Key? key,
-    required this.icon,
-    required this.text,
-    required this.iconColor,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        // 1. Icon
-        Icon(icon, color: iconColor, size: 24),
-        // 2. Khoảng cách
-        const SizedBox(width: 5),
-        // 3. Chữ (Text)
-        SmallText(text: text, color: AppColors.paraColor),
-      ],
-    );
-  }
-}
 
 class FoodPageBody extends StatefulWidget {
   const FoodPageBody({Key? key}) : super(key: key);
@@ -69,7 +44,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
       children: [
         // --- SLIDER (PAGEVIEW) ---
         Container(
-          height: 320,
+          height: Dimensions.viewPage,
           child: PageView.builder(
             controller: pageController,
             itemCount: vietnameseFoods.length > 5 ? 5 : vietnameseFoods.length,
@@ -83,16 +58,16 @@ class _FoodPageBodyState extends State<FoodPageBody> {
         new DotsIndicator(pageValue: _currPageValue),
 
         // --- TIÊU ĐỀ DANH SÁCH ---
-        SizedBox(height: 30),
+        SizedBox(height: Dimensions.height30),
         Container(
-          margin: EdgeInsets.only(left: 30),
+          margin: EdgeInsets.only(left: Dimensions.width10),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               BigText(text: "Thực đơn Việt"),
-              SizedBox(width: 10),
+              SizedBox(width: Dimensions.width10),
               Container(margin: EdgeInsets.only(bottom: 3), child: BigText(text: ".", color: Colors.black26)),
-              SizedBox(width: 10),
+              SizedBox(width: Dimensions.width10),
               Container(margin: EdgeInsets.only(bottom: 2), child: SmallText(text: "Hương vị quê hương")),
             ],
           ),
@@ -100,7 +75,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
 
         // --- DANH SÁCH MÓN ĂN (LIST VIEW) ---
         ListView.builder(
-          physics: AlwaysScrollableScrollPhysics(),
+          physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: vietnameseFoods.length,
           itemBuilder: (context, index) {
@@ -113,15 +88,15 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => FoodDetailPage(food: food)));
               },
               child: Container(
-                margin: EdgeInsets.only(left: 20, right: 20, bottom: 10),
+                margin: EdgeInsets.only(left: Dimensions.width20, right: Dimensions.width20, bottom: Dimensions.top10),
                 child: Row(
                   children: [
                     // Hình ảnh
                     Container(
-                      width: 120,
-                      height: 120,
+                      width: Dimensions.viewPicture,
+                      height: Dimensions.viewPicture,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(Dimensions.height30),
                         color: Colors.white38,
                         image: DecorationImage(fit: BoxFit.cover, image: NetworkImage(food.image)),
                       ),
@@ -129,26 +104,26 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                     // Thông tin chi tiết
                     Expanded(
                       child: Container(
-                        height: 100,
+                        height: Dimensions.listViewTextContSize,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(topRight: Radius.circular(20), bottomRight: Radius.circular(20)),
+                          borderRadius: BorderRadius.only(topRight: Radius.circular(Dimensions.width20), bottomRight: Radius.circular(Dimensions.width20)),
                           color: Colors.white,
                           boxShadow: [BoxShadow(color: Color(0xFFe8e8e8), blurRadius: 5.0, offset: Offset(0, 5))],
                         ),
                         child: Padding(
-                          padding: EdgeInsets.only(left: 10, right: 10),
+                          padding: EdgeInsets.only(left: Dimensions.width10, right: Dimensions.width10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               BigText(text: food.name), // Tên món ăn từ Model
-                              SizedBox(height: 10),
+                              SizedBox(height: Dimensions.height10),
                               SmallText(text: food.description, overflow: TextOverflow.ellipsis), // Mô tả ngắn gọn
-                              SizedBox(height: 10),
+                              SizedBox(height: Dimensions.height10),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  IconAndTextWidget(icon: Icons.circle_sharp, text: "Normal", iconColor: AppColors.iconColor1),
+                                  IconAndTextWidget(icon: Icons.circle_sharp, text: "Normal", iconColor: AppColors.iconColor1,),
                                   IconAndTextWidget(icon: Icons.location_on, text: food.location, iconColor: AppColors.mainColor),
                                   IconAndTextWidget(icon: Icons.access_time_rounded, text: food.time, iconColor: AppColors.iconColor2),
                                 ],
@@ -195,10 +170,10 @@ class _FoodPageBodyState extends State<FoodPageBody> {
         child: Stack(
           children: [
             Container(
-              height: 220,
-              margin: EdgeInsets.only(left: 10, right: 10),
+              height: Dimensions.viewPageContainer,
+              margin: EdgeInsets.only(left: Dimensions.width10, right: Dimensions.width10),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(Dimensions.width30),
                 color: index.isEven ? Color(0xFF69c5df) : Color(0xFF9294cc),
                 image: DecorationImage(fit: BoxFit.cover, image: NetworkImage(food.image)),
               ),
@@ -206,8 +181,8 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                height: 120,
-                margin: EdgeInsets.only(left: 30, right: 30, bottom: 30),
+                height: Dimensions.viewPageTextContainer,
+                margin: EdgeInsets.only(left: Dimensions.width30, right: Dimensions.width30, bottom: Dimensions.width30),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   color: Colors.white,
@@ -218,24 +193,24 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                   ],
                 ),
                 child: Container(
-                  padding: EdgeInsets.only(top: 15, left: 15, right: 15),
+                  padding: EdgeInsets.only(top: Dimensions.top15, left: Dimensions.width15, right: Dimensions.width15),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       BigText(text: food.name),
-                      SizedBox(height: 10),
+                      SizedBox(height: Dimensions.height10),
                       Row(
                         children: [
                           Wrap(children: List.generate(5, (index) => Icon(Icons.star, color: AppColors.mainColor, size: 15))),
-                          SizedBox(width: 10),
+                          SizedBox(width: Dimensions.width10),
                           SmallText(text: "${food.rating}"),
-                          SizedBox(width: 10),
+                          SizedBox(width: Dimensions.width10),
                           SmallText(text: "${food.commentsCount}"),
-                          SizedBox(width: 10),
+                          SizedBox(width: Dimensions.width10),
                           SmallText(text: "comments"),
                         ],
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: Dimensions.height10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -255,7 +230,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
     );
   }
 }
-
+//
 // Helper widget cho Dots Indicator
 class DotsIndicator extends StatelessWidget {
   final double pageValue;

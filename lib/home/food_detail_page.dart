@@ -40,6 +40,7 @@ class FoodDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('Test Food'+ food.userComments.toString());
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
