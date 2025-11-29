@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/home/main_food_page.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart' show GetMaterialApp;
-
+import 'package:get/get.dart';
+import 'home/cart_controller.dart';
 void main() {
+  Get.put(CartController());
   runApp(const MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -47,7 +50,7 @@ class MyHomePage extends StatefulWidget {
 
   // This class is the configuration for the state. It holds the values (in this
   // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget suC:\Users\SDKmanager\AppData\Local\Android\Sdkflubclass are
+  // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
 
   final String title;
