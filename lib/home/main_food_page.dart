@@ -1,21 +1,19 @@
-/****
-    import 'package:flutter/material.dart'
-Day la thu vien chinh chay cho android va ios moi nguoi la chu y su dung thu vien cho chinh xacs
-anh co thay doi 1 so thu vien moi nguoi nho doc ky thu vien truoc khi dung
-**/
-library;
+// library; // Comment dòng này lại để code chạy ổn định
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart'; // Import GetX
+// Import các file cần thiết (Giữ nguyên như bạn cung cấp)
+import 'cart_page.dart'; 
 import 'package:food_delivery_app/home/foodpagebody.dart';
+import 'package:food_delivery_app/home/cart_controller.dart';
 import 'package:food_delivery_app/home/profile.dart';
 import 'package:food_delivery_app/home/history.dart';
-import 'package:food_delivery_app/home/cart.dart';
+import 'package:food_delivery_app/home/cart_page.dart';
 import 'package:food_delivery_app/utils/colors.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
-import 'package:food_delivery_app/home/food_detail_page.dart';
-import 'package:food_delivery_app/models/FoodModel.dart'; // Nếu cần dùng model ở đây
+import 'package:food_delivery_app/models/FoodModel.dart';
 
 class MainFoodPage extends StatefulWidget {
   const MainFoodPage({Key? key}) : super(key: key);
@@ -27,12 +25,12 @@ class MainFoodPage extends StatefulWidget {
 class _MainFoodPageState extends State<MainFoodPage> {
   int _selectedIndex = 0;
 
-List<Widget> get _pages => const [
-  FoodPageBody(),
-  History(),
-  Cart(),
-  Profile(),
-];
+  List<Widget> get _pages => const [
+    FoodPageBody(),
+    History(),
+    CartPage(),
+    Profile(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +89,9 @@ List<Widget> get _pages => const [
           BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.archive), label: 'History'),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),label: 'Cart',),
+            icon: Icon(Icons.shopping_cart),
+            label: 'Cart',
+          ),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Me'),
         ],
       ),
@@ -115,21 +115,21 @@ class IconAndTextWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        // 1. Icon
         Icon(icon, color: iconColor, size: 24),
-        // 2. Khoảng cách
         const SizedBox(width: 5),
-        // 3. Chữ (Text)
         SmallText(text: text, color: AppColors.paraColor),
       ],
     );
   }
 }
 
+// ===> TRANG CHI TIẾT MÓN ĂN (ĐÃ SỬA NÚT THÊM GIỎ HÀNG) <===
 class FoodDetailPage extends StatelessWidget {
   final FoodModel food;
+  // get the CartController instance from GetX
+  final CartController cartController = Get.find<CartController>();
 
-  const FoodDetailPage({super.key, required this.food});
+  FoodDetailPage({Key? key, required this.food}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -137,7 +137,7 @@ class FoodDetailPage extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          // --- ẢNH NỀN ---
+          // --- 1. ẢNH NỀN ---
           Positioned(
             left: 0,
             right: 0,
@@ -152,7 +152,7 @@ class FoodDetailPage extends StatelessWidget {
               ),
             ),
           ),
-          // --- CÁC ICON TRÊN ẢNH ---
+          // --- 2. CÁC ICON TRÊN ẢNH (Back, Cart) ---
           Positioned(
             top: 45,
             left: 20,
@@ -164,11 +164,17 @@ class FoodDetailPage extends StatelessWidget {
                   onTap: () => Navigator.pop(context),
                   child: const AppIcon(icon: Icons.arrow_back_ios),
                 ),
-                const AppIcon(icon: Icons.shopping_cart_outlined),
+                GestureDetector(
+                  onTap: () {
+                    // Chuyển sang CartPage khi bấm icon giỏ hàng trên ảnh
+                    Get.to(() => const CartPage());
+                  },
+                  child: const AppIcon(icon: Icons.shopping_cart_outlined),
+                ),
               ],
             ),
           ),
-          // --- PHẦN THÔNG TIN CHI TIẾT (Nền trắng bo tròn) ---
+          // --- 3. PHẦN THÔNG TIN CHI TIẾT (Trượt lên) ---
           Positioned(
             left: 0,
             right: 0,
@@ -199,7 +205,7 @@ class FoodDetailPage extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 10),
-                  // Đánh giá sao và comment
+                  // Đánh giá
                   Row(
                     children: [
                       Wrap(
@@ -219,7 +225,7 @@ class FoodDetailPage extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 20),
-                  // Các thông số (Thời gian, khoảng cách)
+                  // Các thông số (Ngon, km, time)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -243,7 +249,7 @@ class FoodDetailPage extends StatelessWidget {
                   const SizedBox(height: 20),
                   const BigText(text: "Giới thiệu"),
                   const SizedBox(height: 10),
-                  // Mô tả (Cuộn được nếu dài)
+                  // Mô tả (Cuộn được)
                   Expanded(
                     child: SingleChildScrollView(
                       child: Column(
@@ -255,47 +261,7 @@ class FoodDetailPage extends StatelessWidget {
                             color: AppColors.paraColor,
                             height: 1.5,
                           ),
-                          const SizedBox(height: 20),
-                          const BigText(text: "Bình luận từ khách hàng"),
-                          const SizedBox(height: 10),
-                          // --- DANH SÁCH BÌNH LUẬN ---
-                          if (food.userComments.isEmpty)
-                            const Text("Chưa có bình luận nào.")
-                          else
-                            ...food.userComments.map((comment) {
-                              return Container(
-                                margin: const EdgeInsets.only(bottom: 15),
-                                padding: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  color: AppColors.buttonBackgroundColor,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        BigText(
-                                          text: comment['user']!,
-                                          size: 16,
-                                        ),
-                                        SmallText(text: comment['date']!),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 5),
-                                    Text(
-                                      comment['content']!,
-                                      style: const TextStyle(
-                                        color: Colors.black87,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }).toList(),
-                          const SizedBox(height: 50), // Khoảng trống cuối
+                          const SizedBox(height: 50), // Khoảng trống cuối để không bị che
                         ],
                       ),
                     ),
@@ -306,7 +272,7 @@ class FoodDetailPage extends StatelessWidget {
           ),
         ],
       ),
-      // --- NÚT ĐẶT HÀNG ---
+      // --- 4. BOTTOM BAR (Nút Đặt hàng) ---
       bottomNavigationBar: Container(
         height: 100,
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
@@ -320,6 +286,7 @@ class FoodDetailPage extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            // Nút yêu thích
             Container(
               padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
@@ -328,17 +295,33 @@ class FoodDetailPage extends StatelessWidget {
               ),
               child: const Icon(Icons.favorite, color: AppColors.mainColor),
             ),
-            Container(
-              padding: const EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: AppColors.mainColor,
-              ),
-              child: BigText(
-                text: "Thêm vào giỏ | ${food.price.toInt()}đ",
-                color: Colors.white,
+            
+            // ===> PHẦN ĐÃ SỬA: Thêm GestureDetector để bấm được <===
+            GestureDetector(
+              onTap: () {
+                  cartController.addItem(food);
+
+                  Get.snackbar(
+                    "Thành công",
+                    "Đã thêm ${food.name} vào giỏ hàng!",
+                    snackPosition: SnackPosition.BOTTOM,
+                    backgroundColor: Colors.green,
+                    colorText: Colors.white,
+                  );
+                },
+              child: Container(
+                padding: const EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: AppColors.mainColor,
+                ),
+                child: BigText(
+                  text: "Thêm vào giỏ | ${food.price.toInt()}đ",
+                  color: Colors.white,
+                ),
               ),
             ),
+            // ========================================================
           ],
         ),
       ),
@@ -346,7 +329,6 @@ class FoodDetailPage extends StatelessWidget {
   }
 }
 
-// Widget icon tròn nhỏ dùng cho nút Back
 class AppIcon extends StatelessWidget {
   final IconData icon;
   final Color backgroundColor;

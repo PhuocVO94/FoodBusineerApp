@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/home/oder.dart';
+import 'package:food_delivery_app/home/order_tracking_page.dart';
 import 'package:food_delivery_app/home/address.dart';
 import 'package:food_delivery_app/home/changepassword.dart';
 import 'dart:io';
@@ -120,7 +120,7 @@ class _ProfileState extends State<Profile> {
               buildMenuItem(Icons.receipt_long, "Đơn hàng của tôi", () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const Order()),
+                  MaterialPageRoute(builder: (context) => const OrderTrackingPage()),
                 );
               }),
               buildMenuItem(Icons.location_on, "Địa chỉ giao hàng", (){
