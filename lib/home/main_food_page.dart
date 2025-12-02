@@ -1,18 +1,19 @@
-
 /****
     import 'package:flutter/material.dart'
 Day la thu vien chinh chay cho android va ios moi nguoi la chu y su dung thu vien cho chinh xacs
 anh co thay doi 1 so thu vien moi nguoi nho doc ky thu vien truoc khi dung
 **/
 library;
+
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/home/foodpagebody.dart';
-
+import 'package:food_delivery_app/home/profile.dart';
+import 'package:food_delivery_app/home/history.dart';
+import 'package:food_delivery_app/home/cart.dart';
 import 'package:food_delivery_app/utils/colors.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
-
 import 'package:food_delivery_app/home/food_detail_page.dart';
 import 'package:food_delivery_app/models/FoodModel.dart'; // Nếu cần dùng model ở đây
 
@@ -24,13 +25,21 @@ class MainFoodPage extends StatefulWidget {
 }
 
 class _MainFoodPageState extends State<MainFoodPage> {
+  int _selectedIndex = 0;
+
+List<Widget> get _pages => const [
+  FoodPageBody(),
+  History(),
+  Cart(),
+  Profile(),
+];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          // --- HEADER ---
           Container(
             margin: const EdgeInsets.only(top: 45, bottom: 15),
             padding: const EdgeInsets.only(left: 20, right: 20),
@@ -43,9 +52,9 @@ class _MainFoodPageState extends State<MainFoodPage> {
                     Row(
                       children: const [
                         SmallText(text: "Hồ Chí Minh", color: Colors.black54),
-                        Icon(Icons.arrow_drop_down_rounded)
+                        Icon(Icons.arrow_drop_down_rounded),
                       ],
-                    )
+                    ),
                   ],
                 ),
                 Container(
@@ -56,15 +65,13 @@ class _MainFoodPageState extends State<MainFoodPage> {
                     color: AppColors.mainColor,
                   ),
                   child: const Icon(Icons.search, color: Colors.white),
-                )
+                ),
               ],
             ),
           ),
           // --- BODY ---
-          const Expanded(
-            child: SingleChildScrollView(
-              child: FoodPageBody(),
-            ),
+          Expanded(
+            child: IndexedStack(index: _selectedIndex, children: _pages),
           ),
         ],
 
@@ -77,28 +84,24 @@ class _MainFoodPageState extends State<MainFoodPage> {
         unselectedItemColor: Colors.amberAccent,
         showSelectedLabels: false,
         showUnselectedLabels: false,
+        currentIndex: _selectedIndex,
+        onTap: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
         items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.archive), label: 'History'),
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_filled),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.archive),
-            label: 'History',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: 'Cart',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Me',
-          ),
+            icon: Icon(Icons.shopping_cart),label: 'Cart',),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Me'),
         ],
       ),
     );
   }
 }
+
 class IconAndTextWidget extends StatelessWidget {
   final IconData icon;
   final String text;
@@ -191,7 +194,11 @@ class FoodDetailPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(child: BigText(text: food.name, size: 26)),
-                      BigText(text: "${food.price.toInt()}đ", color: AppColors.mainColor, size: 20),
+                      BigText(
+                        text: "${food.price.toInt()}đ",
+                        color: AppColors.mainColor,
+                        size: 20,
+                      ),
                     ],
                   ),
                   const SizedBox(height: 10),
@@ -199,8 +206,13 @@ class FoodDetailPage extends StatelessWidget {
                   Row(
                     children: [
                       Wrap(
-                        children: List.generate(5, (index) => 
-                          Icon(Icons.star, color: AppColors.mainColor, size: 15)
+                        children: List.generate(
+                          5,
+                          (index) => Icon(
+                            Icons.star,
+                            color: AppColors.mainColor,
+                            size: 15,
+                          ),
                         ),
                       ),
                       const SizedBox(width: 10),
@@ -215,17 +227,20 @@ class FoodDetailPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       IconAndTextWidget(
-                          icon: Icons.circle_sharp,
-                          text: "Ngon",
-                          iconColor: AppColors.iconColor1),
+                        icon: Icons.circle_sharp,
+                        text: "Ngon",
+                        iconColor: AppColors.iconColor1,
+                      ),
                       IconAndTextWidget(
-                          icon: Icons.location_on,
-                          text: food.location,
-                          iconColor: AppColors.mainColor),
+                        icon: Icons.location_on,
+                        text: food.location,
+                        iconColor: AppColors.mainColor,
+                      ),
                       IconAndTextWidget(
-                          icon: Icons.access_time_rounded,
-                          text: food.time,
-                          iconColor: AppColors.iconColor2),
+                        icon: Icons.access_time_rounded,
+                        text: food.time,
+                        iconColor: AppColors.iconColor2,
+                      ),
                     ],
                   ),
                   const SizedBox(height: 20),
@@ -262,14 +277,23 @@ class FoodDetailPage extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        BigText(text: comment['user']!, size: 16),
+                                        BigText(
+                                          text: comment['user']!,
+                                          size: 16,
+                                        ),
                                         SmallText(text: comment['date']!),
                                       ],
                                     ),
                                     const SizedBox(height: 5),
-                                    Text(comment['content']!, style: const TextStyle(color: Colors.black87)),
+                                    Text(
+                                      comment['content']!,
+                                      style: const TextStyle(
+                                        color: Colors.black87,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               );
@@ -313,7 +337,10 @@ class FoodDetailPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
                 color: AppColors.mainColor,
               ),
-              child: BigText(text: "Thêm vào giỏ | ${food.price.toInt()}đ", color: Colors.white),
+              child: BigText(
+                text: "Thêm vào giỏ | ${food.price.toInt()}đ",
+                color: Colors.white,
+              ),
             ),
           ],
         ),
