@@ -17,7 +17,7 @@ class CartPage extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          // --- HEADER: Back, Home, Cart ---
+          // Header: Back, Home, Cart 
           Positioned(
             top: 60,
             left: 20,
@@ -56,7 +56,7 @@ class CartPage extends StatelessWidget {
             ),
           ),
 
-          // --- BODY: Danh sách món ăn trong giỏ ---
+          // Body: danh sách món ăn trong giỏ
           Positioned(
             top: 120,
             left: 0,
@@ -66,10 +66,10 @@ class CartPage extends StatelessWidget {
               builder: (_) {
                 return cartController.cartItems.isEmpty
                     ? Center(
-                        child: BigText(
+                        child: SmallText(
                           text: "Giỏ hàng trống!",
                           color: Colors.grey,
-                          size: 22,
+                          size: 18,
                         ),
                       )
                     : MediaQuery.removePadding(
@@ -124,8 +124,7 @@ class CartPage extends StatelessWidget {
                                               color: Colors.redAccent,
                                             ),
 
-                                            // Nút tăng giảm số lượng (tạm thời fix 1)
-                                            // ===> CODE MỚI ĐÃ CÓ LOGIC TĂNG GIẢM <===
+                                            // Nút tăng giảm số lượng (tạm thời)
                                             Container(
                                               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                                               decoration: BoxDecoration(
@@ -134,28 +133,25 @@ class CartPage extends StatelessWidget {
                                               ),
                                               child: Row(
                                                 children: [
-                                                  // 1. Nút GIẢM (-)
+
+                                                  // Nút giảm - 
                                                   GestureDetector(
                                                     onTap: () {
-                                                      // Gọi hàm giảm số lượng từ Controller
-                                                      // Lưu ý: food.product! là lấy đối tượng FoodModel từ CartModel
+                                                      // Hàm giảm số lượng từ Controller
                                                       cartController.removeItem(food.product!);
                                                     },
                                                     child: const Icon(Icons.remove, color: AppColors.signColor),
                                                   ),
                                                   const SizedBox(width: 5),
 
-                                                  // 2. HIỂN THỊ SỐ LƯỢNG THỰC TẾ
-                                                  // Thay text: "1" bằng biến food.quantity.toString()
+                                                  // Hiển thị số lượng thực tế                                  
                                                   BigText(text: food.quantity.toString()), 
-
                                                   const SizedBox(width: 5),
 
-                                                  // 3. Nút TĂNG (+)
+                                                  // Nút tăng + 
                                                   GestureDetector(
                                                     onTap: () {
-                                                      // Gọi hàm thêm (mặc định thêm 1)
-                                                      cartController.addItem(food.product!);
+                                                      cartController.addItem(food.product!); // Gọi hàm thêm (mặc định thêm 1)
                                                     },
                                                     child: const Icon(Icons.add, color: AppColors.signColor),
                                                   ),
@@ -179,20 +175,18 @@ class CartPage extends StatelessWidget {
         ],
       ),
 
-      // --- BOTTOM: Tổng tiền + nút Check Out ---
+      // Tổng tiền + Nút thanh toán
       bottomNavigationBar: GetBuilder<CartController>(
         builder: (_) {
           double total = 0;
           for (var food in cartController.cartItems) {
             total += food.price ?? 0;
           }
-
           return cartController.cartItems.isEmpty
               ? SizedBox.shrink()
               : Container(
                   height: 120,
-                  padding:
-                      EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                   decoration: BoxDecoration(
                     color: AppColors.buttonBackgroundColor,
                     borderRadius: BorderRadius.only(
@@ -203,37 +197,47 @@ class CartPage extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Tổng tiền
-                      Container(
-                        padding: EdgeInsets.all(20),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.white,
-                        ),
-                        child: Row(
-                          children: [
-                            BigText(text: "${total.toStringAsFixed(1)}đ"),
-                          ],
+                      // Tổng tiền 
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 12),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: AppColors.mainColor,
+                          ),
+                          child: Center(
+                            child: BigText(
+                              text: "${total.toStringAsFixed(1)}đ",
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                       ),
-
-                      // Nút Check Out
-                      Material(
-                        color: Colors.transparent,
-                        child: InkWell(
-                          onTap: () {
-                            print("Order Placed!");
-                            Get.to(() => OrderTrackingPage());
-                          },
-                          child: Container(
-                            padding: EdgeInsets.all(20),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: AppColors.mainColor,
-                            ),
-                            child: BigText(
-                              text: "Check Out",
-                              color: Colors.white,
+                      SizedBox(width: 400),
+                      // Nút thanh toán 
+                      Expanded(
+                        child: Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(15),
+                            splashColor: Colors.white.withOpacity(0.3),
+                            onTap: () {
+                              print("Order Placed!");
+                              Get.to(() => OrderTrackingPage());
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 12),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(17),
+                                color: Colors.green,
+                              ),
+                              child: Center(
+                                child: BigText(
+                                  text: "Thanh Toán",
+                                  color: Colors.white,
+                                  size: 18,
+                                ),
+                              ),
                             ),
                           ),
                         ),

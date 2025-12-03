@@ -9,9 +9,9 @@ class OrderTrackingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // AppBar đơn giản
+      // AppBar 
       appBar: AppBar(
-        title: BigText(text: "Track Order", size: 24, color: Colors.white),
+        title: BigText(text: "Theo dõi đơn hàng", size: 20, color: Colors.white),
         backgroundColor: AppColors.mainColor,
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
@@ -20,7 +20,7 @@ class OrderTrackingPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          // --- PHẦN BẢN ĐỒ (Giả lập) ---
+          // PHẦN BẢN ĐỒ (Giả lập)
           Expanded(
             child: Container(
               width: double.maxFinite,
@@ -36,6 +36,7 @@ class OrderTrackingPage extends StatelessWidget {
                                               ],
                     ),
                   ),
+
                   // Card trạng thái vận chuyển nổi trên bản đồ
                   Positioned(
                     top: 20,
@@ -61,8 +62,8 @@ class OrderTrackingPage extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              BigText(text: "Estimated Time", size: 16),
-                              SmallText(text: "20 - 30 Minutes"),
+                              BigText(text: "Thời gian ước tính", size: 16),
+                              SmallText(text: "20 - 30 Phút"),
                             ],
                           )
                         ],
@@ -74,7 +75,7 @@ class OrderTrackingPage extends StatelessWidget {
             ),
           ),
 
-          // --- PHẦN THÔNG TIN TRẠNG THÁI ĐƠN HÀNG (Bottom Panel) ---
+          // PHẦN THÔNG TIN TRẠNG THÁI ĐƠN HÀNG
           Container(
             height: 300, // Chiều cao cố định cho panel
             padding: EdgeInsets.all(20),
@@ -95,6 +96,7 @@ class OrderTrackingPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                
                 // Thông tin tài xế
                 Row(
                   children: [
@@ -109,10 +111,11 @@ class OrderTrackingPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           BigText(text: "Nguyen Van A"),
-                          SmallText(text: "Shipper - 4.9 ⭐"),
+                          SmallText(text: "Shipper  4.9 ⭐"),
                         ],
                       ),
                     ),
+                    
                     // Nút gọi điện
                     Container(
                       width: 50,

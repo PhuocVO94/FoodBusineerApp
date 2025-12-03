@@ -5,6 +5,7 @@ import 'package:food_delivery_app/home/order_tracking_page.dart';
 import 'package:food_delivery_app/home/address.dart';
 import 'package:food_delivery_app/home/changepassword.dart';
 import 'dart:io';
+import '../../utils/colors.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
@@ -78,28 +79,29 @@ class _ProfileState extends State<Profile> {
               Center(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 137, 218, 208),
+                    backgroundColor: AppColors.mainColor,
                     padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
                   onPressed: () => showLoginDialog(context),
-                  child: const Text("Đăng nhập"),
+                  child: const Text("Đăng nhập",style: TextStyle(color: Colors.white,fontSize: 15,),
+                  ),
                 ),
               ),
               const SizedBox(height: 6),
               Center(
                 child: TextButton(
                   onPressed: () => showRegisterDialog(context),
-                  child: const Text("Tạo tài khoản ?",style: TextStyle(color: Colors.blueAccent,fontSize: 14,),
+                  child: const Text("Tạo tài khoản ?",style: TextStyle(color: Colors.green,fontSize: 15,),
                   ),
                 ),
               ),
               Center(
                 child: TextButton(
                   onPressed: () => showForgotPasswordDialog(context),
-                  child: const Text("Quên mật khẩu",style: TextStyle(color: Colors.blueAccent,fontSize: 14,),
+                  child: const Text("Quên mật khẩu",style: TextStyle(color: Colors.green,fontSize: 15,),
                   ),
                 ),
               ),
@@ -138,13 +140,14 @@ class _ProfileState extends State<Profile> {
               buildMenuItem(Icons.info_outline, "Thông tin tài khoản", (){}),
               const SizedBox(height: 20),
               ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 137, 218, 208)),
+                style: ElevatedButton.styleFrom(backgroundColor: AppColors.mainColor,),
                 onPressed: () {
                   setState(() {
                     isLoggedIn = false;
                   });
                 },
-                child: const Text("Đăng xuất"),
+                child: const Text("Đăng xuất",style: TextStyle(color: Colors.white,fontSize: 15,),
+                ),
               ),
             ],
 

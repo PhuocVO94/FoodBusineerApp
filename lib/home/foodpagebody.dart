@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-// CÁC DÒNG IMPORT QUAN TRỌNG - ĐÃ CHỈNH KHỚP VỚI ẢNH CỦA BẠN
 import '../utils/colors.dart';
 import '../widgets/big_text.dart';
 import '../widgets/icon_and_text.dart'; 
 import '../widgets/small_text.dart';
-import '../models/FoodModel.dart'; // Import file model.dart bạn vừa sửa
-import 'food_detail_page.dart'; // Import trang chi tiết bạn vừa tạo cùng thư mục
+import '../models/FoodModel.dart'; 
+import 'food_detail_page.dart'; 
 
 class IconAndTextWidget extends StatelessWidget {
   final IconData icon;
@@ -68,7 +67,7 @@ Widget build(BuildContext context) {
   return SingleChildScrollView( 
     child: Column(
       children: [
-        // --- SLIDER (PAGEVIEW) ---
+        // SLIDER (PAGEVIEW)
         Container(
           height: 320,
           child: PageView.builder(
@@ -80,10 +79,10 @@ Widget build(BuildContext context) {
           ),
         ),
         
-        // --- DOTS INDICATOR ---
+        // DOTS INDICATOR 
         new DotsIndicator(pageValue: _currPageValue),
 
-        // --- TIÊU ĐỀ DANH SÁCH ---
+        // TIÊU ĐỀ DANH SÁCH
         SizedBox(height: 30),
         Container(
           margin: EdgeInsets.only(left: 30),
@@ -99,7 +98,7 @@ Widget build(BuildContext context) {
           ),
         ),
 
-        // --- DANH SÁCH MÓN ĂN (LIST VIEW) ---
+        // DANH SÁCH MÓN ĂN (LIST VIEW)
         ListView.builder(
           physics: NeverScrollableScrollPhysics(), 
           shrinkWrap: true,

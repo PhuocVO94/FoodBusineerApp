@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// Các import cũ giữ nguyên
 import 'package:food_delivery_app/home/foodpagebody.dart';
 import 'package:food_delivery_app/home/cart_controller.dart';
 import 'package:food_delivery_app/home/profile.dart';
@@ -12,7 +11,6 @@ import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
 import 'package:food_delivery_app/models/FoodModel.dart';
 
-// ===> MAIN PAGE (Giữ nguyên) <===
 class MainFoodPage extends StatefulWidget {
   const MainFoodPage({Key? key}) : super(key: key);
   @override
@@ -111,7 +109,6 @@ class IconAndTextWidget extends StatelessWidget {
   }
 }
 
-// ===> TRANG CHI TIẾT MÓN ĂN (ĐÃ CHUYỂN SANG STATEFUL ĐỂ ĐÁNH GIÁ) <===
 class FoodDetailPage extends StatefulWidget {
   final FoodModel food;
   const FoodDetailPage({Key? key, required this.food}) : super(key: key);
@@ -121,10 +118,8 @@ class FoodDetailPage extends StatefulWidget {
 }
 
 class _FoodDetailPageState extends State<FoodDetailPage> {
-  // Biến dùng để xử lý Logic
   final CartController cartController = Get.find<CartController>();
   
-  // Biến cho phần Đánh giá (Rating)
   int _userRating = 5; // Mặc định 5 sao
   final TextEditingController _commentController = TextEditingController();
 
@@ -134,7 +129,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          // --- 1. ẢNH NỀN ---
+          // ẢNH NỀN 
           Positioned(
             left: 0,
             right: 0,
@@ -144,13 +139,13 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: NetworkImage(widget.food.image), // Dùng widget.food
+                  image: NetworkImage(widget.food.image), 
                 ),
               ),
             ),
           ),
           
-          // --- 2. ICON TOP ---
+          // ICON TOP 
           Positioned(
             top: 45,
             left: 20,
@@ -200,7 +195,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
             ),
           ),
 
-          // --- 3. NỘI DUNG CHI TIẾT ---
+          // NỘI DUNG CHI TIẾT
           Positioned(
             left: 0,
             right: 0,
@@ -257,7 +252,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                   ),
                   const SizedBox(height: 20),
 
-                  // ===> PHẦN MỚI: VIẾT ĐÁNH GIÁ CỦA BẠN <===
+                  // VIẾT ĐÁNH GIÁ 
                   Container(
                     padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
@@ -270,7 +265,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                         const BigText(text: "Đánh giá của bạn", size: 18),
                         const SizedBox(height: 10),
                         
-                        // 1. Hàng sao tương tác (Bấm để chọn)
+                        // Hàng sao tương tác (Bấm để chọn)
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: List.generate(5, (index) {
@@ -289,7 +284,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                           }),
                         ),
 
-                        // 2. Ô nhập bình luận
+                        // Ô nhập bình luận
                         TextField(
                           controller: _commentController,
                           decoration: InputDecoration(
@@ -357,7 +352,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
         ],
       ),
 
-      // --- 4. BOTTOM BAR (Mua ngay & Thêm giỏ) ---
+      // BOTTOM BAR (Mua ngay - Thêm giỏ)
       bottomNavigationBar: GetBuilder<CartController>(builder: (controller) {
         return Container(
           height: 100,
@@ -375,10 +370,10 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
               Container(
                 padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
+                  color: AppColors.mainColor, 
                 ),
-                child: const Icon(Icons.favorite, color: AppColors.mainColor),
+                child: const Icon(Icons.favorite, color: Colors.white),
               ),
               Row(
                 children: [
@@ -392,9 +387,9 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                     },
                     child: Container(
                       padding: const EdgeInsets.all(15),
-                      margin: const EdgeInsets.only(right: 10), 
+                      margin: const EdgeInsets.only(right: 15), 
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(15),
                         color: AppColors.mainColor, 
                       ),
                       child: const Icon(Icons.add_shopping_cart, color: Colors.white),
@@ -408,13 +403,13 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(15),
                         color: Colors.green, 
                       ),
                       child: BigText(
                         text: "Mua ngay | ${widget.food.price.toInt()}đ",
                         color: Colors.white,
-                        size: 16,
+                        size: 18,
                       ),
                     ),
                   ),
