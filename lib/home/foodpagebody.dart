@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/utils/dimensions.dart';
 // CÁC DÒNG IMPORT QUAN TRỌNG - ĐÃ CHỈNH KHỚP VỚI ẢNH CỦA BẠN
 import '../utils/colors.dart';
 import '../widgets/big_text.dart';
 import '../widgets/icon_and_text.dart' hide IconAndTextWidget;
 import '../widgets/small_text.dart';
-import '../models/FoodModel.dart'; // Import file model.dart bạn vừa sửa
-import 'food_detail_page.dart'; // Import trang chi tiết bạn vừa tạo cùng thư mục
+import '../models/FoodModel.dart'; 
+import 'food_detail_page.dart'; 
 
 
 class FoodPageBody extends StatefulWidget {
@@ -42,7 +41,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // --- SLIDER (PAGEVIEW) ---
+        // SLIDER (PAGEVIEW)
         Container(
           height: Dimensions.viewPage,
           child: PageView.builder(
@@ -54,11 +53,11 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           ),
         ),
         
-        // --- DOTS INDICATOR ---
+        // DOTS INDICATOR 
         new DotsIndicator(pageValue: _currPageValue),
 
         // --- TIÊU ĐỀ DANH SÁCH ---
-        SizedBox(height: Dimensions.height30),
+        SizedBox(height: 30),
         Container(
           margin: EdgeInsets.only(left: Dimensions.width10),
           child: Row(
@@ -73,7 +72,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           ),
         ),
 
-        // --- DANH SÁCH MÓN ĂN (LIST VIEW) ---
+        // DANH SÁCH MÓN ĂN (LIST VIEW)
         ListView.builder(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,

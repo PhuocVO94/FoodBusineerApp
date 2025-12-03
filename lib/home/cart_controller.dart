@@ -4,10 +4,7 @@ import '../models/FoodModel.dart';
 import '../utils/colors.dart';
 
 class CartController extends GetxController {
-  // Biến lưu trữ danh sách giỏ hàng: Key là ID món ăn, Value là CartModel
   final Map<int, CartModel> _items = {};
-
-  // ===> GETTERS (Lấy dữ liệu ra UI) <===
 
   // 1. Lấy danh sách item để hiển thị trong CartPage (chuyển từ Map sang List)
   List<CartModel> get cartItems {
@@ -32,11 +29,9 @@ class CartController extends GetxController {
     return total;
   }
 
-  // ===> CÁC HÀM XỬ LÝ LOGIC <===
-
   // Hàm thêm vào giỏ hàng
   void addItem(FoodModel product, {int quantity = 1}) {
-    // Nếu trong giỏ đã có món này rồi -> Cập nhật số lượng
+    // Nếu trong giỏ đã có món này rồi - Cập nhật số lượng
     if (_items.containsKey(product.id)) {
       _items.update(product.id!, (existingCartItem) {
         return CartModel(
@@ -50,12 +45,9 @@ class CartController extends GetxController {
           product: product,
         );
       });
-      
-      // Thông báo UI cập nhật (ví dụ: đổi số lượng ngay lập tức)
       update(); 
       
     } else {
-      // Nếu chưa có -> Thêm mới
       _items.putIfAbsent(product.id!, () {
         return CartModel(
           id: product.id,
@@ -68,13 +60,11 @@ class CartController extends GetxController {
           product: product,
         );
       });
-      
-      // Cập nhật UI (để badge số lượng nhảy số)
       update(); 
     }
   }
 
-  // Hàm kiểm tra món ăn đã có trong giỏ chưa (Dùng để đổi màu nút bấm)
+  // Hàm kiểm tra món ăn đã có trong giỏ chưa
   bool existInCart(FoodModel product) {
     if (_items.containsKey(product.id)) {
       return true;
@@ -82,7 +72,7 @@ class CartController extends GetxController {
     return false;
   }
 
-  // Hàm lấy số lượng của 1 món cụ thể (Dùng để hiển thị "Đã thêm (5)")
+  // Hàm lấy số lượng của 1 món cụ thể 
   int getQuantity(FoodModel product) {
     var quantity = 0;
     if (_items.containsKey(product.id)) {
@@ -95,11 +85,10 @@ class CartController extends GetxController {
     return quantity;
   }
 
-  // Hàm xóa hoặc giảm số lượng món ăn (Dùng trong trang CartPage dấu -)
+  // Hàm xóa hoặc giảm số lượng món ăn 
   void removeItem(FoodModel product) {
     if (_items.containsKey(product.id)) {
         _items.update(product.id!, (existingCartItem) {
-          // Logic giảm số lượng, nếu còn > 1 thì trừ đi 1
           return CartModel(
             id: existingCartItem.id,
             name: existingCartItem.name,
@@ -121,12 +110,10 @@ class CartController extends GetxController {
   }
 }
 
-// ===> CART MODEL (Mô hình dữ liệu cho món trong giỏ) <===
-// Bạn có thể tách cái này ra file riêng trong thư mục models nếu muốn
 class CartModel {
   int? id;
   String? name;
-  double? price; // Lưu ý kiểu dữ liệu (int hay double tùy logic của bạn)
+  double? price; // Lưu ý kiểu dữ liệu (int hay double tùy)
   String? img;
   int? quantity;
   bool? isExist;
@@ -153,8 +140,6 @@ class CartModel {
     quantity = json['quantity'];
     isExist = json['isExist'];
     time = json['time'];
-    // Note: FoodModel.fromJson is not defined; avoid calling it here.
-    // If you implement a fromJson/fromMap factory on FoodModel, replace the next line accordingly.
     product = null;
   }
 }

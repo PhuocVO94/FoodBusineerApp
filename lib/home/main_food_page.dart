@@ -67,7 +67,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
               ],
             ),
           ),
-          // --- BODY ---
+          // BODY
           Expanded(
             child: IndexedStack(index: _selectedIndex, children: _pages),
           ),
@@ -76,7 +76,8 @@ class _MainFoodPageState extends State<MainFoodPage> {
 
 
       ),
-      // --- BOTTOM NAV ---
+      
+      // BOTTOM NAV
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: AppColors.mainColor,
         unselectedItemColor: Colors.amberAccent,
@@ -90,7 +91,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
         },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.archive), label: 'History'),
+          BottomNavigationBarItem(icon: Icon(Icons.history), label: 'History'),
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_cart),
             label: 'Cart',
@@ -126,7 +127,6 @@ class IconAndTextWidget extends StatelessWidget {
   }
 }
 
-// ===> TRANG CHI TIẾT MÓN ĂN (ĐÃ SỬA NÚT THÊM GIỎ HÀNG) <===
 class FoodDetailPage extends StatelessWidget {
   final FoodModel food;
   // get the CartController instance from GetX
@@ -140,7 +140,7 @@ class FoodDetailPage extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          // --- 1. ẢNH NỀN ---
+          // ẢNH NỀN
           Positioned(
             left: 0,
             right: 0,
@@ -155,7 +155,7 @@ class FoodDetailPage extends StatelessWidget {
               ),
             ),
           ),
-          // --- 2. CÁC ICON TRÊN ẢNH (Back, Cart) ---
+          // CÁC ICON TRÊN ẢNH (Back, Cart)
           Positioned(
             top: 45,
             left: 20,
@@ -177,7 +177,7 @@ class FoodDetailPage extends StatelessWidget {
               ],
             ),
           ),
-          // --- 3. PHẦN THÔNG TIN CHI TIẾT (Trượt lên) ---
+          // PHẦN THÔNG TIN CHI TIẾT (Trượt lên)
           Positioned(
             left: 0,
             right: 0,
@@ -275,7 +275,7 @@ class FoodDetailPage extends StatelessWidget {
           ),
         ],
       ),
-      // --- 4. BOTTOM BAR (Nút Đặt hàng) ---
+      // BOTTOM BAR (Nút Đặt hàng)
       bottomNavigationBar: Container(
         height: 100,
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
@@ -298,8 +298,7 @@ class FoodDetailPage extends StatelessWidget {
               ),
               child: const Icon(Icons.favorite, color: AppColors.mainColor),
             ),
-            
-            // ===> PHẦN ĐÃ SỬA: Thêm GestureDetector để bấm được <===
+
             GestureDetector(
               onTap: () {
                   cartController.addItem(food);
@@ -324,7 +323,6 @@ class FoodDetailPage extends StatelessWidget {
                 ),
               ),
             ),
-            // ========================================================
           ],
         ),
       ),
