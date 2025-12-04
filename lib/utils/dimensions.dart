@@ -59,6 +59,7 @@ class Dimensions {
   // IconCreen
 
   static double icon24 = screenHeight / 25.7;
+  static double icon16 = screenHeight / 52.75;
 
 
 //   View Picture

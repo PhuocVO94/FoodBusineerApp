@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/home/main_food_page.dart';
+// import 'package:food_delivery_app/home/main_food_page.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 // CÁC DÒNG IMPORT QUAN TRỌNG - ĐÃ CHỈNH KHỚP VỚI ẢNH CỦA BẠN
 import '../utils/colors.dart';
 import '../widgets/big_text.dart';
 
+import '../widgets/icon_and_text.dart';
 import '../widgets/small_text.dart';
 import '../models/FoodModel.dart'; // Import file model.dart bạn vừa sửa
 import 'food_detail_page.dart'; // Import trang chi tiết bạn vừa tạo cùng thư mục
@@ -122,12 +123,13 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                               SmallText(text: food.description, overflow: TextOverflow.ellipsis), // Mô tả ngắn gọn
                               SizedBox(height: Dimensions.height10),
                               Row(
+
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  // IconAndTextWidget(icon: icon, text: text, iconColor: iconColor),
-                                  // _(iconIcons.circle_sharp, text: "Normal", iconColor: AppColors.iconColor1,),
-                                  // IconAndTextWidget(icon: Icons.location_on, text: food.location, iconColor: AppColors.mainColor),
-                                  // IconAndTextWidget(icon: Icons.access_time_rounded, text: food.time, iconColor: AppColors.iconColor2),
+                                  IconAndTextWidget(icon: Icons.circle_sharp, text: "Ngon", iconColor: AppColors.iconColor1, color: AppColors.textColor, iconSize: 27),
+                                  IconAndTextWidget(icon: Icons.location_on, text: food.location, iconColor: AppColors.iconColor1, color: AppColors.textColor, iconSize: 27),
+                                  IconAndTextWidget(icon: Icons.access_time_rounded, text: food.time, iconColor: AppColors.iconColor1, color: AppColors.textColor, iconSize: 27),
+
                                 ],
                               ),
                             ],
@@ -216,10 +218,10 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          IconAndTextWidget(icon: Icons.circle_sharp, text: "Normal", iconColor: AppColors.iconColor1, color: AppColors.textColor, iconSize: 27),
+                          IconAndTextWidget(icon: Icons.location_on, text: food.location, iconColor: AppColors.iconColor1, color: AppColors.textColor, iconSize: 27),
+                          IconAndTextWidget(icon: Icons.access_time_rounded, text: food.time, iconColor: AppColors.iconColor1, color: AppColors.textColor, iconSize: 27),
 
-                          // IconAndTextWidget(icon: Icons.circle_sharp, text: "Normal", iconColor: AppColors.iconColor1),
-                          // IconAndTextWidget(icon: Icons.location_on, text: food.location, iconColor: AppColors.mainColor),
-                          // IconAndTextWidget(icon: Icons.access_time_rounded, text: food.time, iconColor: AppColors.iconColor2),
                         ],
                       ),
                     ],

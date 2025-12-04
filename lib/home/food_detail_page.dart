@@ -9,7 +9,6 @@ import 'package:food_delivery_app/utils/colors.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
 import 'package:food_delivery_app/models/FoodModel.dart';
-
 import '../widgets/icon_and_text.dart';
 
 
@@ -107,13 +106,14 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
             left: 0,
             right: 0,
             bottom: 0,
-            top: 330,
+            top: Dimensions.viewPage -20,
             child: Container(
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
+              padding:  EdgeInsets.only(left: Dimensions.width20, right: Dimensions.width20, top: Dimensions.height20),
+              decoration:  BoxDecoration(
+                borderRadius:BorderRadius.only(
+                  topRight: Radius.circular(Dimensions.width20),
+                  topLeft: Radius.circular(Dimensions.width20)
+
                 ),
                 color: Colors.white,
               ),
@@ -124,29 +124,29 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(child: BigText(text: widget.food.name, size: 26)),
+                      Expanded(child: BigText(text: widget.food.name, size: Dimensions.icon24)),
                       BigText(
                         text: "${widget.food.price.toInt()}đ",
                         color: AppColors.mainColor,
-                        size: 20,
+                        size: Dimensions.font20,
                       ),
                     ],
                   ),
-                  const SizedBox(height: 10),
+                   SizedBox(height: Dimensions.height10),
 
                   // Hiển thị đánh giá trung bình (Read-only)
                   Row(
                     children: [
                       Wrap(
-                        children: List.generate(5, (index) => const Icon(Icons.star, color: AppColors.mainColor, size: 15)),
+                        children: List.generate(5, (index) =>  Icon(Icons.star, color: AppColors.mainColor, size: Dimensions.font20)),
                       ),
-                      const SizedBox(width: 10),
+                       SizedBox(width:Dimensions.width10 ),
                       SmallText(text: "${widget.food.rating}"),
-                      const SizedBox(width: 10),
+                       SizedBox(width: Dimensions.width10),
                       SmallText(text: "${widget.food.commentsCount} đánh giá"),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                   SizedBox(height: Dimensions.height10),
 
                   // Icon thông tin
                   Row(
@@ -158,19 +158,19 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
 
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: Dimensions.height20),
 
 
-                  const SizedBox(height: 20),
+                  SizedBox(height: Dimensions.height20),
                   const BigText(text: "Giới thiệu"),
-                  const SizedBox(height: 10),
+                  SizedBox(height: Dimensions.height10),
                   SmallText(
                     text: widget.food.description,
-                    size: 16,
+                    size: Dimensions.font16,
                     color: AppColors.paraColor,
                     height: 1.5,
                   ),
-                  const SizedBox(height: 120),
+
                 ],
               ),
             ),
