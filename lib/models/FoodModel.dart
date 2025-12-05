@@ -30,7 +30,7 @@ final List<FoodModel> vietnameseFoods = [
     id: 1,
     name: "Phở Bò Tái Nạm",
     image: "https://imgs.vietnamnet.vn/Images/vnn/2014/08/25/11/20140825110155-bo.jpg?width=0&s=dk-0wXAEOKKgu_B0mZTj7g",
-    description: "Phở là món ăn truyền thống của Việt Nam, với nước dùng ninh từ xương bò trong nhiều giờ.",
+    description: "Phở là món ăn truyền thống của Việt Nam, với nước dùng ninh từ xương bò trong nhiều giờ.hở là món ăn truyền thống của Việt Nam, với nước dùng ninh từ xương bò trong nhiều giờ.hở là món ăn truyền thống của Việt Nam, với nước dùng ninh từ xương bò trong nhiều giờ.hở là món ăn truyền thống của Việt Nam, với nước dùng ninh từ xương bò trong nhiều giờ.hở là món ăn truyền thống của Việt Nam, với nước dùng ninh từ xương bò trong nhiều giờ.",
     price: 50000,
     rating: 4.8,
     commentsCount: 128,

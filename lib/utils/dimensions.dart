@@ -17,7 +17,7 @@ class Dimensions {
   static double height20 = screenHeight / 42.2;  // 844 / 20
   static double height30 = screenHeight / 28.13; // 844 / 30
   static double height45 = screenHeight / 18.76; // 844 / 45
-
+  static double height120 = screenHeight / 7.04;
 
   // --- KÍCH THƯỚC CHIỀU RỘNG (WIDTH) DYNAMIC ---
   // Giống như hình ảnh, bạn dùng cùng tỉ lệ Height cho Width/Padding/Margin.
@@ -29,6 +29,7 @@ class Dimensions {
   static double width15 = screenHeight / 56.27;
   static double width20 = screenHeight / 42.2;
   static double width30 = screenHeight / 28.13;
+
 
 
   // --- FONT DYNAMIC ---
