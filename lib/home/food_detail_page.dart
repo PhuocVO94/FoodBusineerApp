@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/utils/app_column.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:get/get.dart';
 import 'package:food_delivery_app/home/cart_controller.dart';
@@ -117,62 +118,64 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                 ),
                 color: Colors.white,
               ),
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: [
-                  // Tên và Giá
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(child: BigText(text: widget.food.name, size: Dimensions.icon24)),
-                      BigText(
-                        text: "${widget.food.price.toInt()}đ",
-                        color: AppColors.mainColor,
-                        size: Dimensions.font20,
-                      ),
-                    ],
-                  ),
-                   SizedBox(height: Dimensions.height10),
-
-                  // Hiển thị đánh giá trung bình (Read-only)
-                  Row(
-                    children: [
-                      Wrap(
-                        children: List.generate(5, (index) =>  Icon(Icons.star, color: AppColors.mainColor, size: Dimensions.font20)),
-                      ),
-                       SizedBox(width:Dimensions.width10 ),
-                      SmallText(text: "${widget.food.rating}"),
-                       SizedBox(width: Dimensions.width10),
-                      SmallText(text: "${widget.food.commentsCount} đánh giá"),
-                    ],
-                  ),
-                   SizedBox(height: Dimensions.height10),
-
-                  // Icon thông tin
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconAndTextWidget(icon: Icons.circle_sharp, text: "Ngon", iconColor: AppColors.iconColor1, color: AppColors.textColor, iconSize: 27),
-                      IconAndTextWidget(icon: Icons.location_on, text: widget.food.location, iconColor: AppColors.iconColor1, color: AppColors.textColor, iconSize: 27),
-                      IconAndTextWidget(icon: Icons.access_time_rounded, text: widget.food.time, iconColor: AppColors.iconColor1, color: AppColors.textColor, iconSize: 27),
-
-                    ],
-                  ),
-                  SizedBox(height: Dimensions.height20),
-
-
-                  SizedBox(height: Dimensions.height20),
-                  const BigText(text: "Giới thiệu"),
-                  SizedBox(height: Dimensions.height10),
-                  SmallText(
-                    text: widget.food.description,
-                    size: Dimensions.font16,
-                    color: AppColors.paraColor,
-                    height: 1.5,
-                  ),
-
-                ],
-              ),
+              child: AppColumn(food: widget.food,),
+              // child: ListView(
+              //   padding: EdgeInsets.zero,
+              //   children: [
+              //     // Tên và Giá
+              //     Row(
+              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //       children: [
+              //         Expanded(child: BigText(text: widget.food.name, size: Dimensions.icon24)),
+              //         BigText(
+              //           text: "${widget.food.price.toInt()}đ",
+              //           color: AppColors.mainColor,
+              //           size: Dimensions.font20,
+              //         ),
+              //       ],
+              //     ),
+              //      SizedBox(height: Dimensions.height10),
+              //
+              //     // Hiển thị đánh giá trung bình (Read-only)
+              //     Row(
+              //
+              //       children: [
+              //         Wrap(
+              //           children: List.generate(5, (index) =>  Icon(Icons.star, color: AppColors.mainColor, size: Dimensions.font20)),
+              //         ),
+              //          SizedBox(width:Dimensions.width10 ),
+              //         SmallText(text: "${widget.food.rating}"),
+              //          SizedBox(width: Dimensions.width10),
+              //         SmallText(text: "${widget.food.commentsCount} đánh giá"),
+              //       ],
+              //     ),
+              //      SizedBox(height: Dimensions.height10),
+              //
+              //     // Icon thông tin
+              //     Row(
+              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //       children: [
+              //         IconAndTextWidget(icon: Icons.circle_sharp, text: "Ngon", iconColor: AppColors.iconColor1, color: AppColors.textColor, iconSize: 27),
+              //         IconAndTextWidget(icon: Icons.location_on, text: widget.food.location, iconColor: AppColors.iconColor1, color: AppColors.textColor, iconSize: 27),
+              //         IconAndTextWidget(icon: Icons.access_time_rounded, text: widget.food.time, iconColor: AppColors.iconColor1, color: AppColors.textColor, iconSize: 27),
+              //
+              //       ],
+              //     ),
+              //     SizedBox(height: Dimensions.height20),
+              //
+              //
+              //     SizedBox(height: Dimensions.height20),
+              //     const BigText(text: "Giới thiệu"),
+              //     SizedBox(height: Dimensions.height10),
+              //     SmallText(
+              //       text: widget.food.description,
+              //       size: Dimensions.font16,
+              //       color: AppColors.paraColor,
+              //       height: 1.5,
+              //     ),
+              //
+              //   ],
+              // ),
             ),
           ),
         ],

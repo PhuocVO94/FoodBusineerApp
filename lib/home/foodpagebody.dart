@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/utils/app_column.dart';
 // import 'package:food_delivery_app/home/main_food_page.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 // CÁC DÒNG IMPORT QUAN TRỌNG - ĐÃ CHỈNH KHỚP VỚI ẢNH CỦA BẠN
@@ -114,26 +115,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                         ),
                         child: Padding(
                           padding: EdgeInsets.only(left: Dimensions.width10, right: Dimensions.width10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              BigText(text: food.name), // Tên món ăn từ Model
-                              SizedBox(height: Dimensions.height10),
-                              SmallText(text: food.description, overflow: TextOverflow.ellipsis), // Mô tả ngắn gọn
-                              SizedBox(height: Dimensions.height10),
-                              Row(
-
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  IconAndTextWidget(icon: Icons.circle_sharp, text: "Ngon", iconColor: AppColors.iconColor1, color: AppColors.textColor, iconSize: 27),
-                                  IconAndTextWidget(icon: Icons.location_on, text: food.location, iconColor: AppColors.iconColor1, color: AppColors.textColor, iconSize: 27),
-                                  IconAndTextWidget(icon: Icons.access_time_rounded, text: food.time, iconColor: AppColors.iconColor1, color: AppColors.textColor, iconSize: 27),
-
-                                ],
-                              ),
-                            ],
-                          ),
+                          child: AppColumn(food: food),
                         ),
                       ),
                     ),
@@ -198,34 +180,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                 ),
                 child: Container(
                   padding: EdgeInsets.only(top: Dimensions.top15, left: Dimensions.width15, right: Dimensions.width15),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      BigText(text: food.name),
-                      SizedBox(height: Dimensions.height10),
-                      Row(
-                        children: [
-                          Wrap(children: List.generate(5, (index) => Icon(Icons.star, color: AppColors.mainColor, size: 15))),
-                          SizedBox(width: Dimensions.width10),
-                          SmallText(text: "${food.rating}"),
-                          SizedBox(width: Dimensions.width10),
-                          SmallText(text: "${food.commentsCount}"),
-                          SizedBox(width: Dimensions.width10),
-                          SmallText(text: "comments"),
-                        ],
-                      ),
-                      SizedBox(height: Dimensions.height10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconAndTextWidget(icon: Icons.circle_sharp, text: "Normal", iconColor: AppColors.iconColor1, color: AppColors.textColor, iconSize: 27),
-                          IconAndTextWidget(icon: Icons.location_on, text: food.location, iconColor: AppColors.iconColor1, color: AppColors.textColor, iconSize: 27),
-                          IconAndTextWidget(icon: Icons.access_time_rounded, text: food.time, iconColor: AppColors.iconColor1, color: AppColors.textColor, iconSize: 27),
-
-                        ],
-                      ),
-                    ],
-                  ),
+                  child: AppColumn(food: food),
                 ),
               ),
             ),
