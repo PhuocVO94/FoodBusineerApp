@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/controller/popular_product_controller.dart';
+import 'package:food_delivery_app/home/cart_controller.dart';
 import 'package:food_delivery_app/home/main_food_page.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart' show GetMaterialApp;
 import 'package:get/get.dart';
-import 'home/cart_controller.dart';
-void main() {
-  Get.put(CartController());
+import 'package:food_delivery_app/helper/dependence.dart' as dep;
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dep.init();
   runApp(const MyApp());
 }
 
@@ -15,7 +18,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    Get.put(CartController());
+     Get.find<PopularProductController>().getPopularProductList();
+    // Get.put(PopularProductController(popularProductRepo: Get.find()));
+
     return GetMaterialApp(
+
+
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -75,6 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Get.find<PopularProductController>().getPopularProductList();
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //

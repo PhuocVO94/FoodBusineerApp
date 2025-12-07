@@ -128,7 +128,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                         // padding: EdgeInsets.only(left: Dimensions.width15, right: Dimensions.width15),
                         const BigText(text: "Giới thiệu"),
                       SizedBox(height: Dimensions.height10),
-                      SingleChildScrollView(child: ExpandableTextWidget(text: widget.food.description,) ,)
+                      Expanded(child: SingleChildScrollView(child: ExpandableTextWidget(text: widget.food.description,) ,))
                      ,
                     ],
                   )

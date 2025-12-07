@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/home/order_tracking_page.dart';
 import 'package:food_delivery_app/home/address.dart';
 import 'package:food_delivery_app/home/changepassword.dart';
+import 'package:food_delivery_app/utils/dimensions.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
@@ -75,7 +76,7 @@ class _ProfileState extends State<Profile> {
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 10),
+               SizedBox(height: Dimensions.width10),
               Center(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
