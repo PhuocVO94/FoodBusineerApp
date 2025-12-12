@@ -1,16 +1,16 @@
 import 'FoodModel.dart';
 
-class CartModel {
+class CartModelPopular {
   int? id;
   String? name;
-  double? price; // Lưu ý kiểu dữ liệu (int hay double tùy logic của bạn)
+  int? price; // Lưu ý kiểu dữ liệu (int hay double tùy logic của bạn)
   String? img;
   int? quantity;
   bool? isExist;
   String? time;
 
 
-  CartModel({
+  CartModelPopular({
     this.id,
     this.name,
     this.price,
@@ -22,7 +22,7 @@ class CartModel {
   });
 
 
-  CartModel.fromJson(Map<String, dynamic> json) {
+  CartModelPopular.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     price = json['price'];
