@@ -41,13 +41,13 @@ class PopularProductController extends GetxController {
   int checkQuantity(int quantity) {
     if(quantity <0) {
       quantity = 0;
-      Get.snackbar("Thông báo", "Giỏ hàng trống",
+      Get.snackbar("Thông báo", "Giỏ hàng đang trống",
           backgroundColor: AppColors.mainColor,
           colorText: Colors.white);
       return quantity;
 
     } else if(quantity > 10) {
-      Get.snackbar("Thông báo", "Giỏ hàng trống",
+      Get.snackbar("Thông báo", "Giỏ hàng đã đầy",
           backgroundColor: AppColors.mainColor,
           colorText: Colors.white);
       quantity = 10;
