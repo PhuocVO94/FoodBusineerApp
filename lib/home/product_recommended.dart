@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/controller/popular_product_controller.dart';
+import 'package:food_delivery_app/models/product_model.dart';
 import 'package:food_delivery_app/utils/app_column.dart';
+import 'package:food_delivery_app/utils/app_column_forrecomeded.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:food_delivery_app/widgets/expandable_text_widget.dart';
 import 'package:get/get.dart';
@@ -16,8 +19,13 @@ import 'package:food_delivery_app/models/FoodModel.dart';
 
 // ===> TRANG CHI TIẾT MÓN ĂN (ĐÃ CHUYỂN SANG STATEFUL ĐỂ ĐÁNH GIÁ) <===
 class FoodDetailPage extends StatefulWidget {
+  final ProductsModel? productModel;
+
   final FoodModel food;
-  const FoodDetailPage({Key? key, required this.food}) : super(key: key);
+
+  const FoodDetailPage({Key? key, required this.food, this.productModel,
+    // required this.productModel
+  }) : super(key: key);
 
   @override
   State<FoodDetailPage> createState() => _FoodDetailPageState();
@@ -31,6 +39,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
   @override
   Widget build(BuildContext context) {
     // print('Test Food'+ food.userComments.toString());
+    Get.find<PopularProductController>().getDataProduct();
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -122,7 +131,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AppColumn(food: widget.food),
+                      AppColumnRecomended(food: widget.food),
                       SizedBox(height: Dimensions.height20),
 
                         // padding: EdgeInsets.only(left: Dimensions.width15, right: Dimensions.width15),
@@ -145,7 +154,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
       ),
 
       // --- 4. BOTTOM BAR (Mua ngay & Thêm giỏ) ---
-      bottomNavigationBar: GetBuilder<CartController>(builder: (controller) {
+      bottomNavigationBar: GetBuilder<PopularProductController>(builder: (popularProduct) {
         return Container(
           height: Dimensions.height120,
           padding:  EdgeInsets.only(top: Dimensions.height30, bottom: Dimensions.height20, left: Dimensions.width15, right: Dimensions.width15),
@@ -167,18 +176,28 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                 ),
                child: Row(
                  children: [
-                   Icon(Icons.remove, color: AppColors.signColor,),
+                   GestureDetector(
+                       onTap: () {
+                         popularProduct.setQuantity(false);
+                       },
+
+                       child: Icon(Icons.remove, color: AppColors.signColor,)),
                    SizedBox(width: Dimensions.width10 /2,),
-                   BigText(text: "0"),
+                   BigText(text: popularProduct.Quantity.toString()),
                    SizedBox(width: Dimensions.width10 /2,),
-                   Icon(Icons.add, color: AppColors.signColor,),
+                   GestureDetector(
+
+                       onTap: () {
+                         popularProduct.setQuantity(true);
+                       },
+                       child: Icon(Icons.add, color: AppColors.signColor,)),
 
                  ],
                ),
               ),
               GestureDetector(
                 onTap: () {
-                  controller.addItem(widget.food);
+
                   Get.to(() => const CartPage());
                 },
                 child: Container(
