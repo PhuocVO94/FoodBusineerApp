@@ -7,9 +7,9 @@ import 'package:get/get.dart';
 class PopularProductController extends GetxController {
   final PopularProductRepo popularProductRepo;
    int _Quantity =0;
-   int _totalItems = 1;
+   int _totalItems = 0;
   get Quantity =>_Quantity;
-  get  totalItems => _totalItems;
+  get  totalItems => _totalItems + _Quantity;
 
   PopularProductController({required this.popularProductRepo});
   List<dynamic> _popularProductList = [];

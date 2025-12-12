@@ -5,7 +5,7 @@ import '../../utils/dimensions.dart';
 import '../../widgets/big_text.dart';
 import '../../widgets/small_text.dart';
 import '../../widgets/app_icon.dart';
-import '../home/cart_controller.dart';
+import 'cart_controller.dart';
 import '../home/order_tracking_page.dart';
 import 'history_controller.dart'; 
 

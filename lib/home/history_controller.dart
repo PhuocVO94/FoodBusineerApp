@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 // Import file chứa class CartModel. 
 // Dựa trên file bạn gửi, CartModel đang nằm trong cart_controller.dart
-import '../home/cart_controller.dart'; 
+import 'cart_controller.dart';
 
 class HistoryController extends GetxController {
   // Danh sách lưu trữ lịch sử các đơn hàng đã đặt
