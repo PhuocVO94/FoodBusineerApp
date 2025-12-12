@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../models/FoodModel.dart';
-import '../utils/colors.dart';
+import '../models/FoodModel.dart'; // Đảm bảo import đúng model Food của bạn
+// import '../utils/colors.dart'; // Mở nếu cần dùng màu sắc
 
 class CartController extends GetxController {
   // Biến lưu trữ danh sách giỏ hàng: Key là ID món ăn, Value là CartModel
@@ -9,12 +9,10 @@ class CartController extends GetxController {
 
   // ===> GETTERS (Lấy dữ liệu ra UI) <===
 
-  // 1. Lấy danh sách item để hiển thị trong CartPage (chuyển từ Map sang List)
   List<CartModel> get cartItems {
     return _items.entries.map((e) => e.value).toList();
   }
 
-  // 2. Lấy tổng số lượng item (dùng cho badge trên icon giỏ hàng)
   int get totalItems {
     var totalQuantity = 0;
     _items.forEach((key, value) {
@@ -23,7 +21,6 @@ class CartController extends GetxController {
     return totalQuantity;
   }
 
-  // 3. Lấy tổng tiền (dùng cho BottomBar trang CartPage)
   double get totalAmount {
     var total = 0.0;
     _items.forEach((key, value) {
@@ -34,9 +31,15 @@ class CartController extends GetxController {
 
   // ===> CÁC HÀM XỬ LÝ LOGIC <===
 
-  // Hàm thêm vào giỏ hàng
+  // Hàm thêm vào giỏ hàng (ĐÃ CẬP NHẬT THỜI GIAN THỰC)
   void addItem(FoodModel product, {int quantity = 1}) {
-    // Nếu trong giỏ đã có món này rồi -> Cập nhật số lượng
+    // 1. Lấy thời gian hiện tại và định dạng chuỗi
+    DateTime now = DateTime.now();
+    String formattedTime = 
+        "${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')} "
+        "${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year}";
+
+    // 2. Kiểm tra và thêm vào giỏ
     if (_items.containsKey(product.id)) {
       _items.update(product.id!, (existingCartItem) {
         return CartModel(
@@ -44,37 +47,30 @@ class CartController extends GetxController {
           name: existingCartItem.name,
           price: existingCartItem.price,
           img: existingCartItem.img,
-          quantity: existingCartItem.quantity! + quantity, // Cộng dồn số lượng
+          quantity: existingCartItem.quantity! + quantity,
           isExist: true,
-          time: DateTime.now().toString(),
+          time: formattedTime, // <--- Cập nhật thời gian thêm mới nhất
           product: product,
         );
       });
-      
-      // Thông báo UI cập nhật (ví dụ: đổi số lượng ngay lập tức)
-      update(); 
-      
+      update();
     } else {
-      // Nếu chưa có -> Thêm mới
       _items.putIfAbsent(product.id!, () {
         return CartModel(
           id: product.id,
           name: product.name,
           price: product.price,
-          img: product.image,
+          img: product.image, // Lưu ý: kiểm tra trường image trong FoodModel của bạn (img hay image)
           quantity: quantity,
           isExist: true,
-          time: DateTime.now().toString(),
+          time: formattedTime, // <--- Lưu thời gian lúc thêm mới
           product: product,
         );
       });
-      
-      // Cập nhật UI (để badge số lượng nhảy số)
-      update(); 
+      update();
     }
   }
 
-  // Hàm kiểm tra món ăn đã có trong giỏ chưa (Dùng để đổi màu nút bấm)
   bool existInCart(FoodModel product) {
     if (_items.containsKey(product.id)) {
       return true;
@@ -82,7 +78,6 @@ class CartController extends GetxController {
     return false;
   }
 
-  // Hàm lấy số lượng của 1 món cụ thể (Dùng để hiển thị "Đã thêm (5)")
   int getQuantity(FoodModel product) {
     var quantity = 0;
     if (_items.containsKey(product.id)) {
@@ -95,38 +90,39 @@ class CartController extends GetxController {
     return quantity;
   }
 
-  // Hàm xóa hoặc giảm số lượng món ăn (Dùng trong trang CartPage dấu -)
   void removeItem(FoodModel product) {
     if (_items.containsKey(product.id)) {
-        _items.update(product.id!, (existingCartItem) {
-          // Logic giảm số lượng, nếu còn > 1 thì trừ đi 1
-          return CartModel(
+      _items.update(product.id!, (existingCartItem) {
+        return CartModel(
             id: existingCartItem.id,
             name: existingCartItem.name,
             price: existingCartItem.price,
             img: existingCartItem.img,
             quantity: existingCartItem.quantity! - 1,
             isExist: true,
-            time: existingCartItem.time,
-            product: product
-          );
-        });
-        
-        // Nếu số lượng giảm về 0 hoặc dưới 0 thì xóa luôn khỏi map
-        if(_items[product.id]!.quantity! <= 0){
-          _items.remove(product.id);
-        }
+            time: existingCartItem.time, // Giữ nguyên thời gian cũ khi giảm số lượng
+            product: product);
+      });
+
+      if (_items[product.id]!.quantity! <= 0) {
+        _items.remove(product.id);
+      }
     }
+    update();
+  }
+
+  // Hàm xóa sạch giỏ hàng (Dùng khi Check Out xong)
+  void clear() {
+    _items.clear();
     update();
   }
 }
 
-// ===> CART MODEL (Mô hình dữ liệu cho món trong giỏ) <===
-// Bạn có thể tách cái này ra file riêng trong thư mục models nếu muốn
+// ===> CART MODEL <===
 class CartModel {
   int? id;
   String? name;
-  double? price; // Lưu ý kiểu dữ liệu (int hay double tùy logic của bạn)
+  double? price;
   String? img;
   int? quantity;
   bool? isExist;
@@ -144,17 +140,27 @@ class CartModel {
     this.product,
   });
 
-  // Hàm chuyển từ Json (nếu cần sau này lưu local storage)
   CartModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    price = double.parse(json['price'].toString()); // Ép kiểu an toàn
+    price = double.parse(json['price'].toString());
     img = json['img'];
     quantity = json['quantity'];
     isExist = json['isExist'];
     time = json['time'];
-    // Note: FoodModel.fromJson is not defined; avoid calling it here.
-    // If you implement a fromJson/fromMap factory on FoodModel, replace the next line accordingly.
-    product = null;
+    product = null; // Cần logic riêng nếu muốn parse product từ json
+  }
+  
+  // Hàm chuyển thành Json để lưu trữ (nếu cần)
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "name": name,
+      "price": price,
+      "img": img,
+      "quantity": quantity,
+      "isExist": isExist,
+      "time": time,
+    };
   }
 }

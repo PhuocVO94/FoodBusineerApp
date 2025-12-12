@@ -25,11 +25,11 @@ class MainFoodPage extends StatefulWidget {
 class _MainFoodPageState extends State<MainFoodPage> {
   int _selectedIndex = 0;
 
-  List<Widget> get _pages => const [
-    FoodPageBody(),
-    History(),
-    CartPage(),
-    Profile(),
+  List<Widget> get _pages => [
+    const FoodPageBody(),
+    const HistoryPage(), // Tên class phải khớp với trong file history.dart
+    const CartPage(),
+    const Profile(),
   ];
 
   @override
