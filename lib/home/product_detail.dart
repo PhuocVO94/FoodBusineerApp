@@ -72,10 +72,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   onTap: () => Navigator.pop(context),
                   child: const AppIcon(icon: Icons.arrow_back_ios),
                 ),
-                GetBuilder<CartController>(builder: (controller) {
+                GetBuilder<PopularProductController>(builder: (popularProduct) {
                   return GestureDetector(
                     onTap: () {
-                      if (controller.totalItems >= 1) {
+                      if (popularProduct.totalItems >= 1) {
                         Get.to(() => const CartPage());
                       } else {
                         Get.snackbar("Thông báo", "Giỏ hàng trống!",
@@ -86,7 +86,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     child: Stack(
                       children: [
                         const AppIcon(icon: Icons.shopping_cart_outlined),
-                        controller.totalItems >= 1
+                        popularProduct.totalItems >= 1
                             ? Positioned(
                           right: 0, top: 0,
                           child: Container(
@@ -95,7 +95,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 color: AppColors.mainColor,
                                 shape: BoxShape.circle),
                             child: Text(
-                              controller.totalItems.toString(),
+                              popularProduct.totalItems.toString(),
                               style: const TextStyle(
                                   color: Colors.white, fontSize: 12),
                             ),
