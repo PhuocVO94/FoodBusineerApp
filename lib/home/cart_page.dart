@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/models/CartModel.dart';
 import 'package:get/get.dart';
 import '../../utils/colors.dart';
 import '../../utils/dimensions.dart';
@@ -10,12 +11,15 @@ import '../home/order_tracking_page.dart';
 import 'history_controller.dart'; 
 
 class CartPage extends StatelessWidget {
-  const CartPage({Key? key}) : super(key: key);
+
+  // final CartModelPopular cartModelPopular;
+  const CartPage({Key? key, }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final CartController cartController = Get.find<CartController>();
-    
+
+    print('Phuoc Check');
     // Đảm bảo HistoryController đã được khởi tạo
     if (!Get.isRegistered<HistoryController>()) {
       Get.put(HistoryController());

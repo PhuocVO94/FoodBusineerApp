@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/controller/cart_controllor_popular.dart';
 import 'package:food_delivery_app/controller/popular_product_controller.dart';
 import 'package:food_delivery_app/models/product_model.dart';
 import 'package:food_delivery_app/utils/app_column.dart';
@@ -39,7 +40,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
   @override
   Widget build(BuildContext context) {
     // print('Test Food'+ food.userComments.toString());
-    Get.find<PopularProductController>().getDataProduct();
+    Get.find<PopularProductController>().initDataProduct(Get.find<CartControllorPopular>());
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -76,7 +77,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                   return GestureDetector(
                     onTap: () {
                       if (controller.totalItems >= 1) {
-                        Get.to(() => const CartPage());
+                        // Get.to(() => const CartPage());
                       } else {
                         Get.snackbar("Thông báo", "Giỏ hàng trống!",
                             backgroundColor: AppColors.mainColor, 
@@ -198,7 +199,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
               GestureDetector(
                 onTap: () {
 
-                  Get.to(() => const CartPage());
+                  // Get.to(() => const CartPage());
                 },
                 child: Container(
                   padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),

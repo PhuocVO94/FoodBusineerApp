@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/controller/cart_controllor_popular.dart';
 import 'package:food_delivery_app/data/repostitory/popular_product_repo.dart';
+import 'package:food_delivery_app/models/CartModel.dart';
 import 'package:food_delivery_app/models/product_model.dart';
 import 'package:food_delivery_app/utils/colors.dart';
 import 'package:get/get.dart';
 
 class PopularProductController extends GetxController {
   final PopularProductRepo popularProductRepo;
+
    int _Quantity =0;
    int _totalItems = 0;
   get Quantity =>_Quantity;
   get  totalItems => _totalItems + _Quantity;
 
   PopularProductController({required this.popularProductRepo});
+
   List<dynamic> _popularProductList = [];
   List<dynamic> get popularProductList  => _popularProductList;
   bool _isLoad = false;
   bool get isLoad => _isLoad;
+  late CartControllorPopular _cartControllorPopular;
   Future<void> getPopularProductList() async {
 
      Response response = await popularProductRepo.getPopularProductList();
@@ -57,7 +62,24 @@ class PopularProductController extends GetxController {
     }
   }
 
-  void getDataProduct() {
+  void initDataProduct(CartControllorPopular cartControlorPopular) {
     _Quantity = 0;
+    _totalItems = 0;
+    _cartControllorPopular = cartControlorPopular;
+  }
+
+
+  void addCartItemPopular(ProductsModel product  ) {
+
+    // print("Quantity" + Quantity.toString());
+
+    if(Quantity > 0) {
+      _cartControllorPopular.addItemCart(product, Quantity,);
+    }else {
+      Get.snackbar("Thông báo", "Giỏ hàng đang trống",
+          backgroundColor: AppColors.mainColor,
+          colorText: Colors.white);
+    }
+
   }
 }

@@ -102,8 +102,10 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                 return GestureDetector(
                   // SỰ KIỆN BẤM VÀO MÓN ĂN
                   onTap: () {
+                    // print("HUu Phuoc");
                     // Navigator.push(context, MaterialPageRoute(builder: (context) => FoodDetailPage(food: food)));
-                    Get.to(()=>ProductDetailPage(product: productsModel));
+                    Get.to(()=>ProductDetailPage(product: productsModel, pageID: productsModel.id!,));
+
                   },
                   child: Container(
                     margin: EdgeInsets.only(left: Dimensions.width20, right: Dimensions.width20, bottom: Dimensions.top10),

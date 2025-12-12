@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/controller/popular_product_controller.dart';
+import 'package:food_delivery_app/home/cart_page_popular.dart';
 import 'package:food_delivery_app/models/product_model.dart';
 import 'package:food_delivery_app/utils/app_column.dart';
 import 'package:food_delivery_app/utils/app_column_forrecomeded.dart';
@@ -15,16 +16,21 @@ import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
 import 'package:food_delivery_app/models/FoodModel.dart';
 
+import '../controller/cart_controllor_popular.dart';
+
 
 
 
 // ===> TRANG CHI TIẾT MÓN ĂN (ĐÃ CHUYỂN SANG STATEFUL ĐỂ ĐÁNH GIÁ) <===
 class ProductDetailPage extends StatefulWidget {
-  // final ProductsModel? productModel;
+  // CartControllorPopular cartControllorPopular;
 
   final ProductsModel product;
+  final int pageID;
 
-  const ProductDetailPage({Key? key, required this.product,
+  // get _product =>product;
+
+  const ProductDetailPage({Key? key, required this.product,required this.pageID
     // required this.productModel
   }) : super(key: key);
 
@@ -35,11 +41,15 @@ class ProductDetailPage extends StatefulWidget {
 class _ProductDetailPageState extends State<ProductDetailPage> {
   // Biến dùng để xử lý Logic
   final CartController cartController = Get.find<CartController>();
+  late CartControllorPopular cartControllorPopular;
 
 
   @override
   Widget build(BuildContext context) {
-    Get.find<PopularProductController>().getDataProduct();
+
+    var product = Get.find<PopularProductController>().popularProductList[widget.pageID];
+    Get.find<PopularProductController>().initDataProduct(Get.find<CartControllorPopular>());
+    // cartControllorPopular = Get.find<CartControllorPopular>();
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -76,7 +86,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   return GestureDetector(
                     onTap: () {
                       if (popularProduct.totalItems >= 1) {
-                        Get.to(() => const CartPage());
+                        // Get.to(() => const CartPage());
                       } else {
                         Get.snackbar("Thông báo", "Giỏ hàng trống!",
                             backgroundColor: AppColors.mainColor,
@@ -196,21 +206,22 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               GestureDetector(
                 onTap: () {
 
-                  Get.to(() => const CartPage());
+                  popularProduct.addCartItemPopular(product);
                 },
                 child: Container(
-                  padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.green,
+                    padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.green,
+                    ),
+                    child: BigText(
+                      text: "Mua ngay | ${widget.product.price}đ",
+                      color: Colors.white,
+                      size: 16,
+                    ),
                   ),
-                  child: BigText(
-                    text: "Mua ngay | ${widget.product.price}đ",
-                    color: Colors.white,
-                    size: 16,
-                  ),
-                ),
               ),
+              
 
             ],
           ),
