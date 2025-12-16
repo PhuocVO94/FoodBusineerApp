@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// CÁC DÒNG IMPORT QUAN TRỌNG - ĐÃ CHỈNH KHỚP VỚI ẢNH CỦA BẠN
+import 'package:food_delivery_app/utils/dimensions.dart';
 import '../utils/colors.dart';
 import '../widgets/big_text.dart';
 import '../widgets/icon_and_text.dart' hide IconAndTextWidget;
@@ -41,7 +41,6 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // SLIDER (PAGEVIEW)
         Container(
           height: Dimensions.viewPage,
           child: PageView.builder(

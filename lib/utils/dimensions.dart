@@ -19,11 +19,6 @@ class Dimensions {
   static double height45 = screenHeight / 18.76; // 844 / 45
 
 
-  // --- KÍCH THƯỚC CHIỀU RỘNG (WIDTH) DYNAMIC ---
-  // Giống như hình ảnh, bạn dùng cùng tỉ lệ Height cho Width/Padding/Margin.
-  // Mặc dù việc tính toán dựa trên screenWidth tốt hơn,
-  // nhưng nếu làm theo mẫu, chúng ta dùng tỉ lệ Height:
-
   static double width5 = screenHeight / 168.8;
   static double width10 = screenHeight / 84.4;
   static double width15 = screenHeight / 56.27;
@@ -37,6 +32,12 @@ class Dimensions {
   static double font20 = screenHeight / 42.2;
   static double font24 = screenHeight / 35.16;
 
+  // Icon size
+  static double iconSize16 = screenHeight / 52.75;
+  static double iconSize24 = screenHeight / 35.17;
+  static double iconSize30 = screenHeight / 28.13;
+  static double iconSize45 = screenHeight / 18.76;
+  static double iconSize60 = screenHeight / 14.07;
 
   // --- RADIUS DYNAMIC ---
   static double radius15 = screenHeight / 56.27;
