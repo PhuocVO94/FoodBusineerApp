@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/utils/colors.dart';
 
 class Address extends StatefulWidget {
   const Address({super.key});
@@ -90,7 +91,7 @@ class _AddressState extends State<Address> {
               onPressed: () => Navigator.pop(context),
             ),
             ElevatedButton(
-              child: const Text("Xóa"),
+              child: const Text("Xoá",style: TextStyle(color: Colors.white,),),
               style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 137, 218, 208)),
               onPressed: () {
                 setState(() {
@@ -144,7 +145,8 @@ class _AddressState extends State<Address> {
         onPressed: () {
           showAddressDialog(); // thêm mới
         },
-        child: const Icon(Icons.add, color: Color.fromARGB(255, 137, 218, 208)),
+        child: const Icon(Icons.add, color:Colors.white),
+        backgroundColor: AppColors.mainColor,
       ),
     );
   }

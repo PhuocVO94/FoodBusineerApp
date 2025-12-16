@@ -37,17 +37,17 @@ class _MainFoodPageState extends State<MainFoodPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // Column(
-                //   children: [
-                //     const BigText(text: "Việt Nam", color: AppColors.mainColor),
-                //     Row(
-                //       children: const [
-                //         SmallText(text: "Hồ Chí Minh", color: Colors.black54),
-                //         Icon(Icons.arrow_drop_down_rounded),
-                //       ],
-                //     ),
-                //   ],
-                // ),
+                Column(
+                  children: [
+                    const BigText(text: "Việt Nam", color: AppColors.mainColor),
+                    Row(
+                      children: const [
+                        SmallText(text: "Hồ Chí Minh", color: Colors.black54),
+                        Icon(Icons.arrow_drop_down_rounded),
+                      ],
+                    ),
+                  ],
+                ),
                 Center(
                   child: Container(
                     width: 45,
@@ -156,7 +156,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
               children: [
                 GestureDetector(
                   onTap: () => Navigator.pop(context),
-                  child: const AppIcon(icon: Icons.arrow_back_ios),
+                  child: const AppIcon(icon: Icons.arrow_back_ios, iconSize: 30,),
                 ),
                 GetBuilder<CartController>(builder: (controller) {
                   return GestureDetector(
@@ -171,7 +171,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                     },
                     child: Stack(
                       children: [
-                        const AppIcon(icon: Icons.shopping_cart_outlined),
+                        const AppIcon(icon: Icons.shopping_cart_outlined, iconSize: 30,),
                         controller.totalItems >= 1
                             ? Positioned(
                                 right: 0, top: 0,
@@ -434,7 +434,7 @@ class AppIcon extends StatelessWidget {
     required this.icon,
     this.backgroundColor = const Color(0xFFfcf4e4),
     this.iconColor = const Color(0xFF756d54),
-    this.size = 40,
+    this.size = 40, required int iconSize,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {

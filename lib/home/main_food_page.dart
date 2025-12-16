@@ -1,8 +1,6 @@
 // library; // Comment dòng này lại để code chạy ổn định
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart'; // Import GetX
-// Import các file cần thiết (Giữ nguyên như bạn cung cấp)
 import 'cart_page.dart'; 
 import 'package:food_delivery_app/home/foodpagebody.dart';
 import 'package:food_delivery_app/home/cart_controller.dart';
@@ -38,7 +36,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
       backgroundColor: Colors.white,
       body: Column(
         children: [
-    Container(
+        Container(
             margin: EdgeInsets.only(top: Dimensions.height45, bottom: Dimensions.height45),
             padding:  EdgeInsets.only(left: Dimensions.width20, right: Dimensions.width20),
             child: Row(
@@ -72,9 +70,6 @@ class _MainFoodPageState extends State<MainFoodPage> {
             child: IndexedStack(index: _selectedIndex, children: _pages),
           ),
         ],
-
-
-
       ),
       
       // BOTTOM NAV
@@ -165,14 +160,14 @@ class FoodDetailPage extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () => Navigator.pop(context),
-                  child: const AppIcon(icon: Icons.arrow_back_ios),
+                  child: const AppIcon(icon: Icons.arrow_back_ios, iconSize: 20,),
                 ),
                 GestureDetector(
                   onTap: () {
                     // Chuyển sang CartPage khi bấm icon giỏ hàng trên ảnh
                     Get.to(() => const CartPage());
                   },
-                  child: const AppIcon(icon: Icons.shopping_cart_outlined),
+                  child: const AppIcon(icon: Icons.shopping_cart_outlined, iconSize: 20,),
                 ),
               ],
             ),
@@ -341,7 +336,7 @@ class AppIcon extends StatelessWidget {
     required this.icon,
     this.backgroundColor = const Color(0xFFfcf4e4),
     this.iconColor = const Color(0xFF756d54),
-    this.size = 40,
+    this.size = 40, required int iconSize,
   });
 
   @override

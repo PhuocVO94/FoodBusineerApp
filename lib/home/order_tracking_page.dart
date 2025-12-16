@@ -9,7 +9,7 @@ class OrderTrackingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // AppBar 
+      
       appBar: AppBar(
         title: BigText(text: "Theo dõi đơn hàng", size: 20, color: Colors.white),
         backgroundColor: AppColors.mainColor,
@@ -110,7 +110,7 @@ class OrderTrackingPage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          BigText(text: "Nguyen Van A"),
+                          BigText(text: "Nguyen Anh Khue"),
                           SmallText(text: "Shipper  4.9 ⭐"),
                         ],
                       ),
