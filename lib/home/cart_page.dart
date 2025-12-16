@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/utils/app_constants.dart';
 import 'package:get/get.dart';
 import '../../utils/colors.dart';
 import '../../utils/dimensions.dart';
@@ -7,7 +8,6 @@ import '../../widgets/small_text.dart';
 import '../../widgets/app_icon.dart';
 import '../home/cart_controller.dart';
 import '../home/order_tracking_page.dart';
-import 'history_controller.dart'; 
 
 class CartPage extends StatelessWidget {
   const CartPage({Key? key}) : super(key: key);
@@ -15,11 +15,6 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final CartController cartController = Get.find<CartController>();
-    
-    // Đảm bảo HistoryController đã được khởi tạo
-    if (!Get.isRegistered<HistoryController>()) {
-      Get.put(HistoryController());
-    }
 
     return Scaffold(
       body: Stack(
@@ -96,18 +91,18 @@ class CartPage extends StatelessWidget {
                               child: Row(
                                 children: [
                                   // Ảnh món ăn
-                                  Container(
-                                    width: Dimensions.listViewTextContSize,
-                                    height: Dimensions.listViewTextContSize,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(Dimensions.radius20),
-                                      color: Colors.white,
-                                      image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: AssetImage('assets/images/food_placeholder.png'),
+                                   Container(
+                                      width: Dimensions.listViewTextContSize,
+                                      height: Dimensions.listViewTextContSize,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(Dimensions.radius20),
+                                        color: Colors.white,
+                                        image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: NetworkImage(AppConstants.BASE_URL + "/uploads/" + food.img!),
+                                        ),
                                       ),
                                     ),
-                                  ),
                                   SizedBox(width: Dimensions.width10),
 
                                   // Thông tin món ăn
@@ -229,13 +224,6 @@ class CartPage extends StatelessWidget {
                           String formattedTime =
                               "${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')} "
                               "${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year}";
-
-                          // Lưu vào lịch sử
-                          if (Get.isRegistered<HistoryController>()) {
-                            Get.find<HistoryController>().addOrder(
-                                cartController.cartItems,
-                                orderTime: formattedTime);
-                          }
 
                           // Xóa giỏ hàng
                           cartController.clear();

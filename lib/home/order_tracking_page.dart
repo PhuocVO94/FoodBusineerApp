@@ -4,7 +4,6 @@ import '../../utils/colors.dart';
 import '../../utils/dimensions.dart';
 import '../../widgets/big_text.dart';
 import '../../widgets/small_text.dart';
-import '../../home/history_controller.dart'; 
 // QUAN TRỌNG: Import trang chủ để quay về
 import 'main_food_page.dart'; 
 
@@ -104,10 +103,6 @@ class OrderTrackingPage extends StatelessWidget {
                             buttonColor: AppColors.mainColor,
                             cancelTextColor: AppColors.mainColor,
                             onConfirm: () {
-                              // 1. Xóa đơn hàng trong controller
-                              if (orderTime != null) {
-                                Get.find<HistoryController>().cancelOrder(orderTime!);
-                              }
                               
                               // 2. Đóng hộp thoại Dialog trước
                               Get.back(); 
@@ -115,7 +110,7 @@ class OrderTrackingPage extends StatelessWidget {
                               // 3. Thông báo
                               Get.snackbar(
                                 "Đã hủy", 
-                                "Đơn hàng đã được xóa khỏi lịch sử.",
+                                "Đơn hàng của bạn đã hủy thành công.",
                                 backgroundColor: Colors.redAccent, 
                                 colorText: Colors.white,
                                 duration: Duration(seconds: 2)

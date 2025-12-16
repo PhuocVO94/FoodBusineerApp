@@ -39,7 +39,21 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    Get.find<PopularProductController>().getDataProduct();
+     // Chuyển đổi thủ công từ ProductsModel sang FoodModel
+    FoodModel foodProduct = FoodModel(
+      id: widget.product.id!,
+      name: widget.product.name!,
+      image: widget.product.img!,
+      description: widget.product.description!,
+      price: widget.product.price!.toDouble(),
+      rating: 4.5, // Default rating since ProductsModel doesn't have rating property
+      commentsCount: 0, // Default commentsCount
+      location: "1.0km", // Default location  
+      time: "30min", // Default time
+      userComments: [], // Default empty comments
+    );
+
+    Get.find<PopularProductController>().initProduct(foodProduct, Get.find<CartController>());
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -195,7 +209,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               ),
               GestureDetector(
                 onTap: () {
-
+                  popularProduct.addItem(foodProduct);
                   Get.to(() => const CartPage());
                 },
                 child: Container(

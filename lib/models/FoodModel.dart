@@ -22,6 +22,34 @@ class FoodModel {
     required this.time,
     required this.userComments,
   });
+  factory FoodModel.fromJson(Map<String, dynamic> json) {
+    return FoodModel(
+      id: json['id'],
+      name: json['name'],
+      image: json['image'],
+      description: json['description'],
+      price: json['price'].toDouble(),
+      rating: json['rating'].toDouble(),
+      commentsCount: json['commentsCount'],
+      location: json['location'],
+      time: json['time'],
+      userComments: List<Map<String, String>>.from(json['userComments'] ?? []),
+    );
+  }
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'image': image,
+      'description': description,
+      'price': price,
+      'rating': rating,
+      'commentsCount': commentsCount,
+      'location': location,
+      'time': time,
+      'userComments': userComments,
+    };
+  }
 }
 
 // Danh sách món ăn Việt Nam

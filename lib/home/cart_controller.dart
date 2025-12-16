@@ -1,45 +1,40 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../models/FoodModel.dart'; // Đảm bảo import đúng model Food của bạn
-// import '../utils/colors.dart'; // Mở nếu cần dùng màu sắc
+import 'package:shared_preferences/shared_preferences.dart'; // Import thư viện lưu trữ
+import '../models/FoodModel.dart';
+import '../models/CartModel.dart';
+import '../utils/app_constants.dart';
 
 class CartController extends GetxController {
-  // Biến lưu trữ danh sách giỏ hàng: Key là ID món ăn, Value là CartModel
+  // Thay vì dùng Repo, ta dùng trực tiếp SharedPreferences
+  final SharedPreferences sharedPreferences;
+
+  CartController({required this.sharedPreferences});
+
   final Map<int, CartModel> _items = {};
 
-  // ===> GETTERS (Lấy dữ liệu ra UI) <===
-
-  List<CartModel> get cartItems {
-    return _items.entries.map((e) => e.value).toList();
-  }
+  // ===> CÁC GETTER GIỮ NGUYÊN <===
+  List<CartModel> get cartItems => _items.entries.map((e) => e.value).toList();
 
   int get totalItems {
     var totalQuantity = 0;
-    _items.forEach((key, value) {
-      totalQuantity += value.quantity!;
-    });
+    _items.forEach((key, value) => totalQuantity += value.quantity!);
     return totalQuantity;
   }
 
   double get totalAmount {
     var total = 0.0;
-    _items.forEach((key, value) {
-      total += value.price! * value.quantity!;
-    });
+    _items.forEach((key, value) => total += value.price! * value.quantity!);
     return total;
   }
 
-  // ===> CÁC HÀM XỬ LÝ LOGIC <===
-
-  // Hàm thêm vào giỏ hàng (ĐÃ CẬP NHẬT THỜI GIAN THỰC)
+  // ===> HÀM THÊM GIỎ HÀNG (GIỮ NGUYÊN LOGIC, CHỈ SỬA ĐOẠN CUỐI) <===
   void addItem(FoodModel product, {int quantity = 1}) {
-    // 1. Lấy thời gian hiện tại và định dạng chuỗi
     DateTime now = DateTime.now();
-    String formattedTime = 
-        "${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')} "
-        "${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year}";
-
-    // 2. Kiểm tra và thêm vào giỏ
+    String formattedTime = "${now.hour}:${now.minute} ${now.day}/${now.month}/${now.year}";
+    
+    // ... (Giữ nguyên logic if/else kiểm tra tồn tại và update số lượng như cũ) ...
     if (_items.containsKey(product.id)) {
       _items.update(product.id!, (existingCartItem) {
         return CartModel(
@@ -49,32 +44,91 @@ class CartController extends GetxController {
           img: existingCartItem.img,
           quantity: existingCartItem.quantity! + quantity,
           isExist: true,
-          time: formattedTime, // <--- Cập nhật thời gian thêm mới nhất
+          time: formattedTime,
           product: product,
         );
       });
-      update();
+      if (_items[product.id]!.quantity! <= 0) {
+        _items.remove(product.id);
+      }
     } else {
-      _items.putIfAbsent(product.id!, () {
-        return CartModel(
-          id: product.id,
-          name: product.name,
-          price: product.price,
-          img: product.image, // Lưu ý: kiểm tra trường image trong FoodModel của bạn (img hay image)
-          quantity: quantity,
-          isExist: true,
-          time: formattedTime, // <--- Lưu thời gian lúc thêm mới
-          product: product,
-        );
-      });
-      update();
+      if (quantity > 0) {
+        _items.putIfAbsent(product.id!, () {
+          return CartModel(
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            img: product.image,
+            quantity: quantity,
+            isExist: true,
+            time: formattedTime,
+            product: product,
+          );
+        });
+      } else {
+        Get.snackbar("Lỗi", "Bạn phải thêm ít nhất 1 sản phẩm");
+      }
     }
+
+    // ===> THAY ĐỔI: TỰ LƯU LUÔN TẠI ĐÂY <===
+    cartListToStorage(cartItems);
+    update();
   }
 
-  bool existInCart(FoodModel product) {
-    if (_items.containsKey(product.id)) {
-      return true;
+  // ===> CÁC HÀM XỬ LÝ LƯU TRỮ (MỚI THÊM VÀO) <===
+
+  // 1. Hàm lưu danh sách giỏ hàng vào máy
+  void cartListToStorage(List<CartModel> cartList) {
+    List<String> cartStringList = [];
+    var time = DateTime.now().toString();
+
+    cartList.forEach((element) {
+      element.time = time;
+      cartStringList.add(jsonEncode(element));
+    });
+
+    sharedPreferences.setStringList(AppConstants.CART_LIST, cartStringList);
+  }
+
+  // 2. Hàm lấy lịch sử (Dùng cho trang History)
+  List<CartModel> getCartHistoryList() {
+    List<String> cartHistoryString = [];
+    if (sharedPreferences.containsKey(AppConstants.CART_HISTORY_LIST)) {
+      cartHistoryString = sharedPreferences.getStringList(AppConstants.CART_HISTORY_LIST)!;
     }
+    List<CartModel> cartListHistory = [];
+    cartHistoryString.forEach((element) {
+      cartListHistory.add(CartModel.fromJson(jsonDecode(element)));
+    });
+    return cartListHistory;
+  }
+
+  // 3. Hàm lưu vào lịch sử (Gọi khi Check Out)
+  void addToHistory() {
+    List<String> cartHistoryString = [];
+    if (sharedPreferences.containsKey(AppConstants.CART_HISTORY_LIST)) {
+      cartHistoryString = sharedPreferences.getStringList(AppConstants.CART_HISTORY_LIST)!;
+    }
+    
+    // Lấy giỏ hàng hiện tại chuyển sang String rồi thêm vào lịch sử
+    for (int i = 0; i < cartItems.length; i++) {
+      cartHistoryString.add(jsonEncode(cartItems[i]));
+    }
+    
+    sharedPreferences.setStringList(AppConstants.CART_HISTORY_LIST, cartHistoryString);
+    clear();
+  }
+
+  // 4. Hàm xóa giỏ hàng
+  void clear() {
+    _items.clear();
+    sharedPreferences.remove(AppConstants.CART_LIST); // Xóa trong máy luôn
+    update();
+  }
+  
+  // Các hàm phụ trợ khác (existInCart, getQuantity...) giữ nguyên
+  bool existInCart(FoodModel product) {
+    if (_items.containsKey(product.id)) return true;
     return false;
   }
 
@@ -82,85 +136,11 @@ class CartController extends GetxController {
     var quantity = 0;
     if (_items.containsKey(product.id)) {
       _items.forEach((key, value) {
-        if (key == product.id) {
-          quantity = value.quantity!;
-        }
+        if (key == product.id) quantity = value.quantity!;
       });
     }
     return quantity;
   }
 
-  void removeItem(FoodModel product) {
-    if (_items.containsKey(product.id)) {
-      _items.update(product.id!, (existingCartItem) {
-        return CartModel(
-            id: existingCartItem.id,
-            name: existingCartItem.name,
-            price: existingCartItem.price,
-            img: existingCartItem.img,
-            quantity: existingCartItem.quantity! - 1,
-            isExist: true,
-            time: existingCartItem.time, // Giữ nguyên thời gian cũ khi giảm số lượng
-            product: product);
-      });
-
-      if (_items[product.id]!.quantity! <= 0) {
-        _items.remove(product.id);
-      }
-    }
-    update();
-  }
-
-  // Hàm xóa sạch giỏ hàng (Dùng khi Check Out xong)
-  void clear() {
-    _items.clear();
-    update();
-  }
-}
-
-// ===> CART MODEL <===
-class CartModel {
-  int? id;
-  String? name;
-  double? price;
-  String? img;
-  int? quantity;
-  bool? isExist;
-  String? time;
-  FoodModel? product;
-
-  CartModel({
-    this.id,
-    this.name,
-    this.price,
-    this.img,
-    this.quantity,
-    this.isExist,
-    this.time,
-    this.product,
-  });
-
-  CartModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    price = double.parse(json['price'].toString());
-    img = json['img'];
-    quantity = json['quantity'];
-    isExist = json['isExist'];
-    time = json['time'];
-    product = null; // Cần logic riêng nếu muốn parse product từ json
-  }
-  
-  // Hàm chuyển thành Json để lưu trữ (nếu cần)
-  Map<String, dynamic> toJson() {
-    return {
-      "id": id,
-      "name": name,
-      "price": price,
-      "img": img,
-      "quantity": quantity,
-      "isExist": isExist,
-      "time": time,
-    };
-  }
+  void removeItem(FoodModel foodModel) {}
 }
