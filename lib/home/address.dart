@@ -90,7 +90,6 @@ class _AddressState extends State<Address> {
               onPressed: () => Navigator.pop(context),
             ),
             ElevatedButton(
-              child: const Text("Xóa"),
               style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 137, 218, 208)),
               onPressed: () {
                 setState(() {
@@ -98,6 +97,7 @@ class _AddressState extends State<Address> {
                 });
                 Navigator.pop(context);
               },
+              child: const Text("Xóa"),
             ),
           ],
         );

@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/models/product_model.dart';
 import 'package:food_delivery_app/utils/colors.dart';
 
 // import '../home/main_food_page.dart';

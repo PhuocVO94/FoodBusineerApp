@@ -33,7 +33,7 @@ class _AppColumnState extends State<AppColumn> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        BigText(text: widget.productsModel?.name??''),
+        BigText(text: widget.productsModel.name??''),
         SizedBox(height: Dimensions.height10),
         Row(
           children: [

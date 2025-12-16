@@ -23,9 +23,9 @@ class FoodDetailPage extends StatefulWidget {
 
   final FoodModel food;
 
-  const FoodDetailPage({Key? key, required this.food, this.productModel,
+  const FoodDetailPage({super.key, required this.food, this.productModel,
     // required this.productModel
-  }) : super(key: key);
+  });
 
   @override
   State<FoodDetailPage> createState() => _FoodDetailPageState();
@@ -228,12 +228,12 @@ class AppIcon extends StatelessWidget {
   final Color iconColor;
   final double size;
   const AppIcon({
-    Key? key,
+    super.key,
     required this.icon,
     this.backgroundColor = const Color(0xFFfcf4e4),
     this.iconColor = const Color(0xFF756d54),
     this.size = 40,
-  }) : super(key: key);
+  });
   @override
   Widget build(BuildContext context) {
     return Container(

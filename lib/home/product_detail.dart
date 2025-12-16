@@ -24,9 +24,9 @@ class ProductDetailPage extends StatefulWidget {
 
   final ProductsModel product;
 
-  const ProductDetailPage({Key? key, required this.product,
+  const ProductDetailPage({super.key, required this.product,
     // required this.productModel
-  }) : super(key: key);
+  });
 
   @override
   State<ProductDetailPage> createState() => _ProductDetailPageState();
@@ -68,7 +68,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: NetworkImage(AppConstants.BASE_URL+"/uploads/"+ widget.product.img!), // Dùng widget.food
+                  image: NetworkImage("${AppConstants.BASE_URL}/uploads/${widget.product.img!}"), // Dùng widget.food
                 ),
               ),
             ),
@@ -240,12 +240,12 @@ class AppIcon extends StatelessWidget {
   final Color iconColor;
   final double size;
   const AppIcon({
-    Key? key,
+    super.key,
     required this.icon,
     this.backgroundColor = const Color(0xFFfcf4e4),
     this.iconColor = const Color(0xFF756d54),
     this.size = 40,
-  }) : super(key: key);
+  });
   @override
   Widget build(BuildContext context) {
     return Container(

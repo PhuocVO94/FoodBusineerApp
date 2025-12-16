@@ -16,7 +16,7 @@ import 'package:food_delivery_app/widgets/small_text.dart';
 import 'package:food_delivery_app/models/FoodModel.dart';
 
 class MainFoodPage extends StatefulWidget {
-  const MainFoodPage({Key? key}) : super(key: key);
+  const MainFoodPage({super.key});
 
   @override
   State<MainFoodPage> createState() => _MainFoodPageState();
@@ -108,11 +108,11 @@ class IconAndTextWidget extends StatelessWidget {
   final Color iconColor;
 
   const IconAndTextWidget({
-    Key? key,
+    super.key,
     required this.icon,
     required this.text,
     required this.iconColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -10,7 +10,7 @@ import 'main_food_page.dart';
 class OrderTrackingPage extends StatelessWidget {
   final String? orderTime; 
   
-  const OrderTrackingPage({Key? key, this.orderTime}) : super(key: key);
+  const OrderTrackingPage({super.key, this.orderTime});
 
   @override
   Widget build(BuildContext context) {

@@ -8,7 +8,7 @@ import 'package:food_delivery_app/widgets/small_text.dart';
 import 'package:food_delivery_app/models/CartModel.dart';
 
 class HistoryPage extends StatelessWidget {
-  const HistoryPage({Key? key}) : super(key: key);
+  const HistoryPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +62,7 @@ class HistoryPage extends StatelessWidget {
     // ==========================================================
     // 2. LOGIC NHÓM ĐƠN HÀNG
     // ==========================================================
-    Map<String, int> cartItemsPerOrder = Map();
+    Map<String, int> cartItemsPerOrder = {};
 
     for (int i = 0; i < getCartHistoryList.length; i++) {
       if (cartItemsPerOrder.containsKey(getCartHistoryList[i].time)) {
@@ -128,7 +128,7 @@ class HistoryPage extends StatelessWidget {
                               image: (currentOrderItems[imgIndex].img != null &&
                                       currentOrderItems[imgIndex].img!.startsWith("http"))
                                   ? NetworkImage(currentOrderItems[imgIndex].img!) // Link online
-                                  : NetworkImage(AppConstants.BASE_URL + "/uploads/" + (currentOrderItems[imgIndex].img ?? "")), // Link server nội bộ
+                                  : NetworkImage("${AppConstants.BASE_URL}/uploads/${currentOrderItems[imgIndex].img ?? ""}"), // Link server nội bộ
                             ),
                           ),
                         );
@@ -136,7 +136,7 @@ class HistoryPage extends StatelessWidget {
                     ),
 
                     // Cột Thông tin
-                    Container(
+                    SizedBox(
                       height: 80,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -144,7 +144,7 @@ class HistoryPage extends StatelessWidget {
                         children: [
                           SmallText(text: "Tổng cộng", color: AppColors.titleColor),
                           BigText(
-                              text: currentOrderItems.length.toString() + " món",
+                              text: "${currentOrderItems.length} món",
                               color: AppColors.titleColor),
                           Container(
                             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),

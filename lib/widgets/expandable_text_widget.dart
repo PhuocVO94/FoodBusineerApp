@@ -46,7 +46,7 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
             height: 1.8, // Khoảng cách dòng rộng hơn cho dễ đọc
             size: Dimensions.font16,
             color: AppColors.paraColor,
-            text: hiddenText ? (firstHalf + "...") : (firstHalf + secondHalf),
+            text: hiddenText ? ("$firstHalf...") : (firstHalf + secondHalf),
             maxLines: hiddenText
                 ? 5
                 : null, // 👈 CẬP NHẬT: Giới hạn 5 dòng khi ẩn, xuống dòng thoải mái khi hiện (null)

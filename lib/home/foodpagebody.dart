@@ -18,7 +18,7 @@ import 'product_recommended.dart'; // Import trang chi tiết bạn vừa tạo 
 
 
 class FoodPageBody extends StatefulWidget {
-  const FoodPageBody({Key? key}) : super(key: key);
+  const FoodPageBody({super.key});
 
   @override
   State<FoodPageBody> createState() => _FoodPageBodyState();
@@ -53,7 +53,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
       child: Column(
         children: [
           // --- SLIDER (PAGEVIEW) ---
-          Container(
+          SizedBox(
             height: Dimensions.viewPage,
             child: PageView.builder(
               controller: pageController,
@@ -68,7 +68,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
 
 
 
-          new DotsIndicator(pageValue: _currPageValue),
+          DotsIndicator(pageValue: _currPageValue),
 
           // --- TIÊU ĐỀ DANH SÁCH ---
           SizedBox(height: Dimensions.height30),
@@ -116,7 +116,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(Dimensions.height30),
                             color: Colors.white38,
-                            image: DecorationImage(fit: BoxFit.cover, image: NetworkImage(AppConstants.BASE_URL+"/uploads/"+productsModel.img!)),
+                            image: DecorationImage(fit: BoxFit.cover, image: NetworkImage("${AppConstants.BASE_URL}/uploads/${productsModel.img!}")),
                           ),
                         ),
                         // Thông tin chi tiết
@@ -214,7 +214,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
 // Helper widget cho Dots Indicator
 class DotsIndicator extends StatelessWidget {
   final double pageValue;
-  const DotsIndicator({Key? key, required this.pageValue}) : super(key: key);
+  const DotsIndicator({super.key, required this.pageValue});
 
   @override
   Widget build(BuildContext context) {

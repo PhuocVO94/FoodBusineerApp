@@ -36,7 +36,7 @@ class CartController extends GetxController {
     
     // ... (Giữ nguyên logic if/else kiểm tra tồn tại và update số lượng như cũ) ...
     if (_items.containsKey(product.id)) {
-      _items.update(product.id!, (existingCartItem) {
+      _items.update(product.id, (existingCartItem) {
         return CartModel(
           id: existingCartItem.id,
           name: existingCartItem.name,
@@ -53,7 +53,7 @@ class CartController extends GetxController {
       }
     } else {
       if (quantity > 0) {
-        _items.putIfAbsent(product.id!, () {
+        _items.putIfAbsent(product.id, () {
           return CartModel(
             id: product.id,
             name: product.name,
@@ -82,10 +82,10 @@ class CartController extends GetxController {
     List<String> cartStringList = [];
     var time = DateTime.now().toString();
 
-    cartList.forEach((element) {
+    for (var element in cartList) {
       element.time = time;
       cartStringList.add(jsonEncode(element));
-    });
+    }
 
     sharedPreferences.setStringList(AppConstants.CART_LIST, cartStringList);
   }
@@ -97,9 +97,9 @@ class CartController extends GetxController {
       cartHistoryString = sharedPreferences.getStringList(AppConstants.CART_HISTORY_LIST)!;
     }
     List<CartModel> cartListHistory = [];
-    cartHistoryString.forEach((element) {
+    for (var element in cartHistoryString) {
       cartListHistory.add(CartModel.fromJson(jsonDecode(element)));
-    });
+    }
     return cartListHistory;
   }
 

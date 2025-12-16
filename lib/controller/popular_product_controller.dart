@@ -10,7 +10,7 @@ import '../home/cart_controller.dart';
 class PopularProductController extends GetxController {
   final PopularProductRepo popularProductRepo;
   int _Quantity = 0;
-  int _totalItemsNew = 0;
+  final int _totalItemsNew = 0;
   get Quantity => _Quantity;
   get totalItems =>  _totalItemsNew;
 

@@ -1,4 +1,3 @@
-import 'package:food_delivery_app/data/repostitory/popular_product_repo.dart';
 import 'package:food_delivery_app/data/repostitory/recommended_product_repo.dart';
 import 'package:food_delivery_app/models/product_model.dart';
 import 'package:get/get.dart';
